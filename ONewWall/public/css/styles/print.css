@@ -1,0 +1,146 @@
+body {
+    color: #000000;
+    width: 100%;
+}
+
+.wrapper {
+    margin: 0 1cm 0 0;
+}
+
+.page-header, .page-footer, form, select, .col.col-20 .accordion, .print, section.detail-item .col.col-35, .back, .submission-header, .submission-list, .submission-button, .screen-artist-name, .screen-img, .screen-caption, .screen-videos {
+    display: none;
+}
+
+.print-artist-name {
+    color: #000;
+    padding-bottom: 10px;
+}
+.print-artist-name .artist-name {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+.print-artist-name .artist-email {
+
+}
+.print-section-title {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+.print-img {
+    padding-bottom: 15px;
+}
+.print-caption {
+    padding-bottom: 50px;
+}
+
+.main:before {
+    display: block;
+    content: url(../images/core/logo_300dpi.jpg);
+    margin-bottom: 2em;
+}
+
+.ie6 .main:before,
+.ie7 .main:before {
+    content: "WHITE CUBE";
+    font-size: 1.5em;
+}
+
+b,
+.b,
+strong,
+header h1,
+header h2,
+.button,
+.back,
+.categorised-nav .list-heading {
+    font-family: sans-serif;
+}
+
+body,
+input,
+textarea,
+select,
+.text-image-item h2,
+.exhibition-info h3,
+.panel-heading,
+.toggle {
+    font-family: sans-serif;
+}
+
+i,
+em {
+    font-family: sans-serif;
+    font-style: normal;
+}
+
+b,
+strong {
+    font-weight: normal;
+}
+
+b i,
+strong i,
+b em,
+strong em,
+i b,
+i strong,
+em b,
+em strong {
+    font-family: sans-serif;
+}
+
+.wrapper {
+    font-size: 0.8em;
+}
+
+a,
+.a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.main h1,
+.main h2,
+.main h3,
+.main p,
+.main ul,
+.main ol,
+.main address {
+    line-height: 134%;
+}
+
+.main p,
+.main ul,
+.main ol,
+.main address,
+.main .phone,
+.main figcaption,
+.expandable h3 {
+    margin-bottom: 1em;
+}
+
+.main .phone p,
+.accordion p,
+.main figcaption p {
+    margin-bottom: 0;
+}
+
+.standard h1,
+.standard h2,
+.standard h3,
+header {
+    margin-bottom: 1em;
+}
+
+.standard hgroup h1,
+.standard hgroup h2 {
+    margin-bottom: 0;
+}
+
+.standard ol {
+    list-style: decimal inside none;
+}
+
+a:link:after {
+  content: " ("attr(href)") ";
+}
