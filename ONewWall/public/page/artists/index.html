@@ -14,8 +14,23 @@
 
         <link href="//127.0.0.1:8020/ONewWall/css/styles/wc.css?1" rel="stylesheet" type="text/css" media="screen" />
 
+        <script src="//127.0.0.1:8020/ONewWall/js/vendor/modernizr-2.7.1.min.js"></script>
+        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/jquery.min.js"></script>
+        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/jquery.mobile.js"></script>
+        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/jquery.tinyscrollbar.min.js"></script>
+        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/spin.min.js"></script>
+        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/swfobject.min.js"></script>
+        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/functions.js"></script>
         <script>
             var base_url = "http://127.0.0.1:8020/ONewWall/";
+            
+            $(document).ready(function(){
+            	var html = '';
+            	html += '<li>';
+            	html += '<a href="//127.0.0.1:8020/ONewWall/page/artists/park_juhyun/" title="Park Juhyun | O'NewWall" data-preview="/ONewWall/images/content/tool-story.jpg">Park Juhyun</a>';
+            	html += '</li>';
+            	$('#artistsList').append(html);
+            });
         </script>
         <br />
 
@@ -62,7 +77,7 @@
                 <div class="main clearfix" id="artists">
                     <nav class="artist-list col col-70 colset left clearfix">
                         <div class="col col-33">
-                            <ul class="inner">
+                            <ul class="inner" id='artistsList'>
                                 <li>
                                     <a href="//127.0.0.1:8020/ONewWall/page/artists/park_juhyun/" title="Park Juhyun | O'NewWall" data-preview="/ONewWall/images/content/tool-story.jpg">Park Juhyun</a>
                                 </li>
@@ -77,12 +92,5 @@
             </div>
         </div>
 
-        <script src="//127.0.0.1:8020/ONewWall/js/vendor/modernizr-2.7.1.min.js"></script>
-        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/jquery.min.js"></script>
-        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/jquery.mobile.js"></script>
-        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/jquery.tinyscrollbar.min.js"></script>
-        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/spin.min.js"></script>
-        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/swfobject.min.js"></script>
-        <script src="//127.0.0.1:8020/ONewWall/js/whitecube/functions.js"></script>
     </body>
 </html>
