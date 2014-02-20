@@ -1,11 +1,8 @@
-
 /**
  * Module dependencies.
  */
 
-var express = require('express')
-  , http = require('http')
-  , path = require('path');
+var express = require('express'), http = require('http'), path = require('path');
 
 var app = express();
 
@@ -19,25 +16,51 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+if ('development' === app.get('env')) {
+	app.use(express.errorHandler());
 }
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function() {
+	console.log('Express server listening on port ' + app.get('port'));
 });
 
-app.get('/', function(req, res, next){
+// for CORS (cross-orgin resource sharing)
+app.all('*', function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	next();
+});
+
+app.get('/', function(req, res, next) {
 	res.redirect('page/main');
 });
 
-app.get('/page/main', function(req, res, next){
-	console.log('main/index.html');
-	var fs = require('fs');
-	console.log(__dirname);
-	fs.readdir(__dirname+'/public/page/main', function(err, files) {
-		console.log(files);
-		
-	});
-	next();
-});
+app
+		.get(
+				'/page/main/exhibition',
+				function(req, res, next) {
+					console.log('/page/main/exhibition');
+					var fs = require('fs');
+					console.log(__dirname);
+					fs.readdir(__dirname + '/public/page/main/20131220',
+							function(err, files) {
+								console.log(files);
+
+							});
+					res.type('html');
+					res
+							.send('<a class="block" href="//127.0.0.1:3000/page/artists/park_juhyun/" title="Darren Almond - To Leave a Light Impression | O\'NewWall" >'  
+									+ ' <img class="ff" src="/images/content/tool-story.jpg" style="max-width:700px; max-height: 600px"/>'
+									+ ' <div class="text ff ">'
+									+ ' <header>'
+									+ ' <hgroup>'
+									+ ' <h1>TOOL STORY 1-2 SPACE TIME</h1>'
+									+ ' <h2>Park Juhyun</h2>'
+									+ ' </hgroup>'
+									+ ' </header>'
+									+ ' <h3>2013.12.20(Fri.) &ndash; 2014.02.02 (Sun.) 설날 연휴 휴무</h3>'
+									+ ' <h3>Opening 2013. 12.20 (Fri) 05:00pm</h3>'
+									+ ' </div>'
+									+ ' </a>');
+
+				});
