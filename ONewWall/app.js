@@ -11,8 +11,6 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -27,4 +25,19 @@ if ('development' == app.get('env')) {
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+app.get('/', function(req, res, next){
+	res.redirect('page/main');
+});
+
+app.get('/page/main', function(req, res, next){
+	console.log('main/index.html');
+	var fs = require('fs');
+	console.log(__dirname);
+	fs.readdir(__dirname+'/public/page/main', function(err, files) {
+		console.log(files);
+		
+	});
+	next();
 });
