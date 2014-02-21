@@ -35,32 +35,34 @@ app.get('/', function(req, res, next) {
 	res.redirect('page/main');
 });
 
-app
-		.get(
-				'/page/main/exhibition',
-				function(req, res, next) {
-					console.log('/page/main/exhibition');
-					var fs = require('fs');
-					console.log(__dirname);
-					fs.readdir(__dirname + '/public/page/main/20131220',
-							function(err, files) {
-								console.log(files);
+app.get('/page/main/exhibitions', function(req, res, next) {
 
-							});
-					res.type('html');
-					res
-							.send('<a class="block" href="//127.0.0.1:3000/page/artists/park_juhyun/" title="Darren Almond - To Leave a Light Impression | O\'NewWall" >'  
-									+ ' <img class="ff" src="/images/content/tool-story.jpg" style="max-width:700px; max-height: 600px"/>'
-									+ ' <div class="text ff ">'
-									+ ' <header>'
-									+ ' <hgroup>'
-									+ ' <h1>TOOL STORY 1-2 SPACE TIME</h1>'
-									+ ' <h2>Park Juhyun</h2>'
-									+ ' </hgroup>'
-									+ ' </header>'
-									+ ' <h3>2013.12.20(Fri.) &ndash; 2014.02.02 (Sun.) 설날 연휴 휴무</h3>'
-									+ ' <h3>Opening 2013. 12.20 (Fri) 05:00pm</h3>'
-									+ ' </div>'
-									+ ' </a>');
-
-				});
+	var fs = require('fs');
+	
+	console.log(__dirname);
+	var path = __dirname + '/public/page/main';
+	
+	fs.readdir(path, function(err, files) {
+		for(var i in files){
+			var name = path+'/'+files[i];
+			if (fs.statSync(name).isDirectory()){
+				res.type('html');
+				res.send('<section class="slide featured ff">' +
+								' <a class="block" href="//127.0.0.1:3000/page/artists/park_juhyun/" title="Darren Almond - To Leave a Light Impression | O\'NewWall" >' + 
+								' <img class="ff" src="/images/content/tool-story.jpg" style="max-width:700px; max-height: 600px"/>' + 
+								' <div class="text ff ">' + 
+								' <header>' + 
+								' <hgroup>' + 
+								' <h1>TOOL STORY 1-2 SPACE TIME</h1>' + 
+								' <h2>Park Juhyun</h2>' + 
+								' </hgroup>' + 
+								' </header>' + 
+								' <h3>2013.12.20(Fri.) - 2014.02.02 (Sun.) 설날 연휴 휴무</h3>' + 
+								' <h3>Opening 2013. 12.20 (Fri) 05:00pm</h3>' + 
+								' </div>' + ' </a>' + ' </section>');
+	        }else{
+	        	res.send('<h1> no exhibitions </h1>');
+	        }
+		}
+	});
+});
