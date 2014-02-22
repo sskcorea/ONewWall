@@ -48,61 +48,51 @@ app.get('/', function(req, res, next) {
 // main page
 app.get('/page/main/exhibitions', function(req, res, next) {
 	var fs = require('fs');
-	var readline = require('readline');
-	
 	var root = path.join(__dirname, '/public/page/main');
 	var dirname;
+	var files;
+	var html = '';
+	files = fs.readdirSync(root);	
+	console.log(files);
+	for(i in files){
+		console.log('[' + i + ']' + files[i]);
+		
+		if(fs.statSync(path.join(root, files[i])).isDirectory()){
+			var src = '';
+			var h1='', h2='', h3='';
+			var exhibition_files;
+			
+			dirname = files[i];
+			exhibition_files = fs.readdirSync(path.join(root ,dirname));
+			
+			for(j in exhibition_files){
+				console.log('[' + j + ']' + exhibition_files[j]);
 
-//	var h1;
-//	var h2 = "<h2>Park Juhyun</h2>";
-//	var h3 = "<h3>2013.12.20(Fri.) - 2014.02.02 (Sun.) 설날 연휴 휴무</h3>" + 
-//	 "<h3>Opening 2013. 12.20 (Fri) 05:00pm</h3>";
-//	var html;
+				if(path.extname(exhibition_files[j]) === ".txt") {
+					var line = fs.readFileSync(path.join(root, dirname, exhibition_files[j])).toString().split("\n");
+					for(j in line) {
+					    console.log(j + line[j]);
+					    if(j == 0){
+					    	h1 = "<h1>" + line[j] + "</h1>";
+					    }else if(j == 1){
+					    	h2 = "<h2>" + line[j] + "</h2>";
+					    }else{
+					    	h3 += "<h3>" + line[j] +"</h3>";
+					    }
+					}
 
-	fs.readdir(root, function(err, files) {
-		if (err) next(err);
-
-		files.forEach(function(f){
-			fs.stat(path.join(root, f), function(err, stats){
-				if (err) next(err);
-
-				if(stats.isDirectory()){
-					dirname = f;
-					fs.readdir(path.join(root ,dirname), function(err, files){
-						if (err) next(err);
-						
-						var h1, h2, h3='';
-						var html;
-						files.forEach(function(f){
-							if(path.extname(f) === ".txt") {
-								var line = fs.readFileSync(path.join(root, dirname, f)).toString().split("\n");
-								for(i in line) {
-								    console.log(i + line[i]);
-								    if(i == 0){
-								    	h1 = "<h1>" + line[i] + "</h1>";
-								    }else if(i == 1){
-								    	h2 = "<h2>" + line[i] + "</h2>";
-								    }else{
-								    	h3 += "<h3>" + line[i] +"</h3>";
-								    }
-								}
-
-							}else if(path.extname(f) === '.jpg'){
-								src = path.join('/page/main/',dirname, f);
-								console.log('src: ' + src);
-							}
-						});
-						
-						html = '<section class="slide featured ff">' + 
-						' <img class="ff" src=' + src + ' style="max-width:700px; max-height: 600px"/><div class="text ff "><header><hgroup>' + 
-						h1 + h2 + ' </hgroup></header>' + 
-						h3 + ' </div> </section>';
-						
-						console.log(html);
-						res.send(html);
-					});
+				}else if(path.extname(exhibition_files[j]) === '.jpg'){
+					src = path.join('/page/main/',dirname, exhibition_files[j]);
+					console.log('src: ' + src);
 				}
-			});
-		});
-	});
+			}
+			
+			html += '<section class="slide featured ff">' + 
+			' <img class="ff" src=' + src + ' style="max-width:700px; max-height: 600px"/><div class="text ff "><header><hgroup>' + 
+			h1 + h2 + ' </hgroup></header>' + 
+			h3 + ' </div> </section>';
+			console.log('html: ' + html);
+		}
+	}
+	res.send(html);
 });
