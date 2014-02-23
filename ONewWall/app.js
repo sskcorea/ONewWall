@@ -3,7 +3,7 @@
  */
 
 var express = require('express'), http = require('http'), path = require('path'), async = require('async');
-
+var fs = require('fs');
 var app = express();
 
 // all environments
@@ -44,19 +44,45 @@ app.get('/', function(req, res, next) {
 	res.redirect('page/main');
 });
 
+//artists page
+app.get('/artists', function(req, res, next) {
+	var files;
+	var html='';
+	var root = path.join(__dirname, '/public/page/', req.route.path);
+	var data_preview=undefined;
+	
+	files = fs.readdirSync(root);
+	
+	for(i in files){
+		console.log(files[i]);
+		if(fs.statSync(path.join(root, files[i])).isDirectory()){
+			data_preview=undefined;
+			artists_files = fs.readdirSync(path.join(root ,files[i]));
+			for(j in artists_files){
+				console.log(artists_files[j]);
+				if(path.extname(artists_files[j]) === '.jpg'){
+					data_preview = artists_files[j];
+					break;
+				}
+			}
+			if(data_preview){
+				html += '<li><a href="/page/artists/' + files[i] + '" title="Park Juhyun | O\'NewWall" data-preview="/page/artists/' + files[i] + '/' + data_preview + '">' + files[i] + '</a></li>';	
+			}else{
+				html += '<li><a href="/page/artists/' + files[i] + '">' + files[i] + '</a></li>';
+			}
+		}
+	}
+	res.send(html);
+});
 
 // main page
-app.get('/page/main/exhibitions', function(req, res, next) {
-	var fs = require('fs');
+app.get('/main', function(req, res, next) {
 	var root = path.join(__dirname, '/public/page/main');
 	var dirname;
 	var files;
 	var html = '';
-	files = fs.readdirSync(root);	
-	console.log(files);
+	files = fs.readdirSync(root);
 	for(i in files){
-		console.log('[' + i + ']' + files[i]);
-		
 		if(fs.statSync(path.join(root, files[i])).isDirectory()){
 			var src = '';
 			var h1='', h2='', h3='';
@@ -66,8 +92,6 @@ app.get('/page/main/exhibitions', function(req, res, next) {
 			exhibition_files = fs.readdirSync(path.join(root ,dirname));
 			
 			for(j in exhibition_files){
-				console.log('[' + j + ']' + exhibition_files[j]);
-
 				if(path.extname(exhibition_files[j]) === ".txt") {
 					var line = fs.readFileSync(path.join(root, dirname, exhibition_files[j])).toString().split("\n");
 					for(j in line) {
@@ -83,7 +107,6 @@ app.get('/page/main/exhibitions', function(req, res, next) {
 
 				}else if(path.extname(exhibition_files[j]) === '.jpg'){
 					src = path.join('/page/main/',dirname, exhibition_files[j]);
-					console.log('src: ' + src);
 				}
 			}
 			// active tab

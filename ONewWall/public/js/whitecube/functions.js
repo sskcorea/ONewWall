@@ -2045,10 +2045,27 @@ $(document).ready(function() {
     // Page switch
     var template = main.attr('id'); 
     switch(template) {
+    	case "main":{
+    		$.ajax({
+    			url : '/' + template,
+    			dataType : "html"
+    		})
+    		.done(function( data ) {
+    			$('section.tab-panel').append(data);
+    		});
+    		break;
+    	}
         case "artists":
-            if (!smartphone && ieversion>8) {
-                artistList();
-            }           
+        	$.ajax({
+    			url : '/' + template,
+    			dataType : "html"
+    		}).done(function(data) {
+    			$('ul.inner').append(data);
+    			
+    			 if (!smartphone && ieversion>8) {
+    				 artistList();	 
+    			 }
+    		});
             break;
         case "shop":
             if (!smartphone) {
