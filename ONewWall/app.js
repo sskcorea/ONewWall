@@ -86,9 +86,13 @@ app.get('/page/main/exhibitions', function(req, res, next) {
 					console.log('src: ' + src);
 				}
 			}
-			
-			html += '<section class="slide featured ff">' + 
-			' <img class="ff" src=' + src + ' style="max-width:700px; max-height: 600px"/><div class="text ff "><header><hgroup>' + 
+			// active tab
+			if(i==0){
+				html += '<section class="slide featured ff active-slide">'; 
+			}else{
+				html += '<section class="slide featured ff" style="opacity: 0; display: none;">';
+			}
+			html += ' <img class="ff" src=' + src + ' style="max-width:700px; max-height: 600px"/><div class="text ff "><header><hgroup>' + 
 			h1 + h2 + ' </hgroup></header>' + 
 			h3 + ' </div> </section>';
 			console.log('html: ' + html);
