@@ -53,8 +53,25 @@ app.get('/', function(req, res, next) {
 // artist main page
 app.get('/page/artists/:id', function(req, res, next) {
 	console.log(req.params.id);
+	
+	var root = path.join(__dirname, '/public/page/artists/',
+			req.params.id);
+	var files = fs.readdirSync(root);
+	var p=[];
+	for (i in files) {
+		if (files[i] === "DESC.txt") {
+			var line = fs.readFileSync(path.join(root, files[i])).toString().split("\n");
+			
+			for (j in line) {
+				p[j] = {text: line[j]};
+			}
+			console.log(p);
+		}
+	}
 	res.render('artist', { 'artist_name': req.params.id, 
-		'href': '/page/artists/park juhyun/'});
+		'href': '/page/artists/park juhyun/',
+		'p': p
+		});
 });
 
 // artists page
