@@ -8,6 +8,8 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/public/views');
+app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -46,6 +48,13 @@ app.all('*', function(req, res, next) {
 // first page
 app.get('/', function(req, res, next) {
 	res.redirect('page/main');
+});
+
+// artist main page
+app.get('/page/artists/:id', function(req, res, next) {
+	console.log(req.params.id);
+	res.render('artist', { 'artist_name': req.params.id, 
+		'href': '/page/artists/park juhyun/'});
 });
 
 // artists page

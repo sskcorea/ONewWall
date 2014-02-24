@@ -2073,6 +2073,12 @@ $(document).ready(function() {
             }
             break;
         case "artist":
+        	$.ajax({
+    			url : '/' + template,
+    			dataType : "html"
+    		}).done(function(data) {
+    			console.log();
+    		});
             if (!smartphone) {
                 viewerInit();
                 hijaxAnchor();
