@@ -75,20 +75,16 @@ html(lang='en')
           .row-fluid.main-content
             .span12
               #dzCarousel.carousel.slide
-                // Carousel items
                 .carousel-inner
                   .item.active
                     .carousel-image
-                      a(href='/exhibition/doug-wheeler-2/')
+                      a(href='/views/#{artist_name}/')
                         img(src='#{img_src}', width='800')
                     .carousel-caption
                       h3
-                        a(href='/exhibition/doug-wheeler-2/') #{artist_name}
+                        a(href='/views/#{artist_name}/') #{artist_name}
                       each line in memo
                         h4 #{line.text}
-                // Carousel nav
-                  <a class="carousel-control left" href="#dzCarousel" data-slide="prev">&lsaquo;</a>
-                    <a class="carousel-control right" href="#dzCarousel" data-slide="next">&rsaquo;</a>
           include footer
     include script_src
     
