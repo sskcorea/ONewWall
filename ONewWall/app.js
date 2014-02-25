@@ -52,42 +52,81 @@ app.get('/', function(req, res, next) {
 
 // artist main page
 app.get('/page/artists/:id', function(req, res, next) {
-	console.log(req.params.id);
-	
-	// artists list
+	console.log(req.params.id + '\'s page start!');
+
 	var root = path.join(__dirname, '/public/page/artists/');
-	var artist_folder = path.join(root, req.params.id);
+	var artist_folder = path.join(root, req.params.id, 'exhibitions/main');
 	
 	var root_files = fs.readdirSync(root);
 	var artist_files = fs.readdirSync(artist_folder);
 	var artist_lists=[];
-	var p=[];
+	var exhibition_desc=[];
+	var artworks=[];
+	var title;
+	var subtitle;
+	var img_count=0;
 	
+	// artists list
 	for (i in root_files){
 		
 		if (fs.statSync(path.join(root, root_files[i])).isDirectory()) {
-			console.log('root_files is directory: ' + root_files[i]);
 			artist_lists.push({
 				'name': root_files[i],
 				'href': '/page/artists/' + root_files[i]
 			});
 		}
-		console.log(artist_lists);
 	}
-	for (i in artist_files) {
-		if (artist_files[i] === "DESC.txt") {
-			var line = fs.readFileSync(path.join(artist_folder, artist_files[i])).toString().split("\n");
+	
+	// description of exhibition
+	for (var ii in artist_files) {
+		if (artist_files[ii] === 'README.txt') continue;
+		
+		if (artist_files[ii] === "DESC.txt") {
+			var line = fs.readFileSync(path.join(artist_folder, artist_files[ii])).toString().split("\n");
 			
 			for (j in line) {
-				p[j] = {text: line[j]};
+				if(j==0) {
+					title = line[j];
+				}
+				else if(j==1){
+					subtitle = line[j];
+				}
+				else {
+					exhibition_desc.push({'text': line[j]});
+				}
 			}
-			console.log(p);
+		}else{
+			if(path.extname(artist_files[ii]) === ".txt"){
+				var line = fs.readFileSync(path.join(artist_folder, artist_files[ii])).toString().split("\n");
+				
+				artworks.push({
+					'src': '/page/artists/' + req.params.id + '/exhibitions/main/' + artist_files[ii].replace("txt","jpg"),
+					'data': '/page/artists/' + req.params.id + '/exhibitions/main/' + artist_files[ii].replace("txt","jpg"),
+					'title': title,
+					'subtitle' : subtitle,
+					'name': line[1],
+					'year': line[2],
+					'materials': line[3],
+					'size': line[4]
+				});
+				img_count++;
+			}
 		}
 	}
-	res.render('artist', { 'artist_name': req.params.id, 
+	
+//	console.log(artist_lists);
+//	console.log(exhibition_desc);
+	console.log(artworks);
+//	console.log(img_count);
+	// description of artworks
+	res.render('artist', { 
+		'artist_name': req.params.id, 
 		'artist_lists': artist_lists,
-		'p': p
-		});
+		'title': title,
+		'exhibition_desc': exhibition_desc,
+		'artworks' : artworks,
+		'img_count': img_count
+	});
 });
 
 // artists page
@@ -104,14 +143,12 @@ app
 					files = fs.readdirSync(root);
 
 					for (i in files) {
-						console.log(files[i]);
 						if (fs.statSync(path.join(root, files[i]))
 								.isDirectory()) {
 							data_preview = undefined;
 							artists_files = fs.readdirSync(path.join(root,
 									files[i]));
 							for (j in artists_files) {
-								console.log(artists_files[j]);
 								if (path.extname(artists_files[j]) === '.jpg') {
 									data_preview = artists_files[j];
 									break;
@@ -161,7 +198,6 @@ app
 													exhibition_files[j]))
 											.toString().split("\n");
 									for (j in line) {
-										console.log(j + line[j]);
 										if (j == 0) {
 											h1 = "<h1>" + line[j] + "</h1>";
 										} else if (j == 1) {
@@ -187,7 +223,6 @@ app
 									+ ' style="max-width:700px; max-height: 600px"/><div class="text ff "><header><hgroup>'
 									+ h1 + h2 + ' </hgroup></header>' + h3
 									+ ' </div> </section>';
-							console.log('html: ' + html);
 						}
 					}
 					res.send(html);

@@ -1,0 +1,103 @@
+doctype html
+html.no-js(lang='en')
+  head
+    title Park Juhyun Artists | O'NewWall
+    meta(charset='UTF-8')
+    meta(name='author', content='O\'NewWall')
+    meta(name='generator', content='SSKCOREA')
+    meta(name='description', content='TOOL STORY 1-2 SPACE TIME')
+    link(rel='shortcut icon', href='http://whitecube.com/images/icons/favicon.ico')
+    link(rel='apple-touch-icon', href='http://whitecube.com/images/icons/3g.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='http://whitecube.com/images/icons/ipad.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='http://whitecube.com/images/icons/retina.png')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    link(href='/css/styles/wc.css?1', rel='stylesheet', type='text/css', media='screen')
+    link(href='/css/styles/add_to_calendar.css?1', rel='stylesheet', type='text/css', media='screen')
+    link(href='/css/styles/print.css', rel='stylesheet', type='text/css', media='print')
+    
+    script var base_url='http://127.0.0.1:3000';
+  body(data-role='page')
+    .wrapper
+      .page-header.clearfix
+        nav.clearfix
+          .logo-wrapper.col.col-20
+            a.logo.ir(href='', title='Home | O\'NewWall') Home
+          ul#site_navigation.left.clearfix
+            li.active
+              a(href='/page/artists/', title='Artists | ONewWall') Artists
+            li
+              a(href='/page/exhibitions/', title='Exhibitions | ONewWall') Exhibitions
+            li
+              a(href='/page/exhibitions/', title='Events | ONewWall') Events
+            li
+              a(href='/page/exhibitions/', title='Projects | ONewWall') Projects
+            li
+              a(href='/page/exhibitions/', title='Publishing | ONewWall') Publishing
+            li
+              a(href='/page/exhibitions/', title='Consulting | ONewWall') Consulting
+            li
+              a(href='/page/about/', title='About | ONewWall') About
+            li
+              a(href='/page/contact/', title='Contact | ONewWall') Contact
+      #fade-me
+        #artist.main.clearfix
+          .accessible-back-button.back
+            p
+              a(href='/page/artists/', title='Artists') Back to Artists
+          .col.col-20
+            .inner
+              header
+                h1 #{artist_name}
+              .accordion.smartphone-hide
+                section.panel.ff
+                  h1.panel-heading.a All Artists
+                  .panel-inner
+                    .panel-scrollpane(data-scroll='y')
+                      .panel-content.ff
+                        nav
+                          ul.touch-padding
+                            each artist in artist_lists
+                              li
+                                a.active(href='#{artist.href}') #{artist.name}
+          section.detail-item.col.col-80.clearfix
+            .viewer.ff.col.col-65(style='opacity: 1;')
+              .inner.default
+                .expandable
+                  .text.ff
+                    each line in exhibition_desc
+                      p 
+                        | #{line.text}
+            .col.col-35
+              .accordion(style='min-height: 379px;')
+                section.panel.ff.active-panel(style='position: absolute; top: 0px;')
+                  h1.panel-heading.a.active Artworks
+                  .panel-inner.tiny-scrollbar
+                    .panel-scrollpane(data-scroll='y', style='height: 224px;')
+                      #image_picker.panel-content.artwork.clearfix.ff(style='min-height: 112; top: 0px;')
+                        #tool_story.image-set.col.col-33.clear.active(data-tooltip='TOOL STORY 1-2 SPACE TIME | 7 images', data-section-title='<TOOL STORY 1-2 SPACE TIME>')
+                          .inner.ff
+                            - each artwork in artworks
+                              figure.image-item
+                                img(src='#{artwork.src}', data-main='#{artwork.data}', data-large='#{artwork.data}')
+                                figcation.ff.hideable
+                                  p.legend
+                                    span.title #{artwork.title}
+                                    br
+                                    | #{artwork.name}
+                                    br
+                                    | #{artwork.year}
+                                    br
+                                    | #{artwork.materials}
+                                    br
+                                    | #{artwork.size}
+                    .ui-scrollbar.ui-scrollbar-y(style='height: 224px;')
+                      .ui-scrollbar-track(style='height: 224px;')
+                        .ui-scrollbar-thumb(style='top: 0px; height: 77.7922480620155px;')
+                          .ui-scrollbar-end
+    script(src='/js/vendor/modernizr-2.7.1.min.js')
+    script(src='/js/whitecube/jquery.min.js')
+    script(src='/js/whitecube/jquery.mobile.js')
+    script(src='/js/whitecube/jquery.tinyscrollbar.min.js')
+    script(src='/js/whitecube/spin.min.js')
+    script(src='/js/whitecube/swfobject.min.js')
+    script(src='/js/whitecube/functions.js')
