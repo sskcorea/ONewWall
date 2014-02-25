@@ -8,7 +8,6 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('domain', process.env.DOMAIN || '127.0.0.1:' + app.get('port'));
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -44,6 +43,11 @@ app.all('*', function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	next();
+});
+
+// first page
+app.get('/', function(req, res, next) {
+	res.redirect('page/main');
 });
 
 // artist main page
@@ -223,14 +227,3 @@ app
 					}
 					res.send(html);
 				});
-
-//first page
-app.get('/', function(req, res, next) {
-	var files = fs.readdirSync(path.join(__dirname, '/public/data/main'));
-	for (i in files) {
-		if(files[i] === 'DESC.txt'){
-			
-		}
-	}
-	res.render('home');
-});
