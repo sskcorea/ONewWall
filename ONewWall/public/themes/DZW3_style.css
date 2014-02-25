@@ -1,0 +1,746 @@
+/*------------------------------------------------------------*/
+/*-------------------------GLOBAL-----------------------------*/
+/*------------------------------------------------------------*/
+
+/*--------------------STRUCTURE-------------------------------*/
+
+.content-container {
+  margin-top: 60px;
+}
+.sidebar {
+  margin-top: 40px;
+}
+.page-title {
+  margin-bottom: 0;
+  margin-top: 40px;
+}
+.page-subtitle {
+  margin-top: 0;
+}
+
+.item_thumb {
+  width: 175px;
+}
+
+.main-column {
+  margin-top:40px;
+}
+
+.main-content {
+  margin-bottom: 40px;
+}
+
+@media screen and ( max-width: 767px ) {
+  .content-container {
+    margin-top: 20px;
+  }
+}
+
+/*--------------------STYLE----------------------------------*/
+.sidebar p {
+  padding: 8px 12px;
+}
+.pill-indent {
+  padding-left: 12px;
+}
+.pills-child {
+  //padding-left: 12px;
+}
+.nav-pills li.pills-child a {
+  padding: 4px 36px;
+}
+.nav-pills li.pills-child form{
+  padding: 4px 0px 4px 36px;
+  margin: 0;
+}
+ul.nav-child-wrapper li.pills-child a {
+  padding: 8px 0px 8px 12px;
+}
+.nav-pills li.pills-child button{
+  padding: 0;
+  color: #b94a48;
+}
+.pills-parent {
+  padding: 4px 12px 0 12px;
+}
+
+.page-title {
+  font-weight: 200;
+  font-size: 2.3em;
+}
+.page-title small {
+  font-size: 14px;
+}
+.page-title a {
+  color: #999;
+}
+.page-subtitle {
+  font-size: 18px;
+  font-weight: 100;
+  line-height: 24px;
+  height: 24px;
+}
+.date-subtitle {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 14px;
+  height:14px;
+  margin-top: 0;
+}
+a.no-background-hover {
+  background-color: transparent;
+}
+.hover-slider .slide-up {
+  display: none;
+}
+.grey {
+  color: #888;
+}
+.alignleft {
+  float: left;
+  padding: 0 10px 10px 0;
+}
+.alignright {
+  float: right;
+  padding: 0 0 10px 10px;
+}
+.indent {
+  margin-left: 2em;
+}
+.rounded-corners {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.text-small {
+  font-size: .75em;
+}
+.text-normal {
+  font-size: 1em;
+}
+.text-large {
+  font-size:1.5em;
+}
+.text-xlarge {
+  font-size:2em;
+  line-height: 1.3em;
+}
+@media screen and ( max-width: 480px ) {
+  h1.page-title {
+    font-size: 2em;
+  }
+}
+.dz_splash_image {
+  margin-bottom: 30px;
+}
+.dz_column_style_image_with_content h3 {
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 0;
+}
+
+
+/*------------------------------------------------------------*/
+/*-------------------------SPECIFIC---------------------------*/
+/*------------------------------------------------------------*/
+
+/*-------------------------------------------------------*/
+/*--------------------GENERAL----------------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+.dz-image-content {
+  margin-top: 40px;
+}
+.notAffixedHeader {
+  //position: absolute;
+  //top: 40px;
+  //width: inherit;
+  margin-left: -10px;
+}
+
+.affixedHeader {
+  //position:static;
+  background-color: white;
+  margin-bottom: -34px;
+  margin-left:-10px;
+  z-index:1;
+}
+.affixedHeader.affix {
+  top:0;
+  position:fixed;
+  box-shadow: 0px 5px 10px -10px black;
+  border-bottom: 1px solid #eeeeee;
+  width:inherit;
+  //margin-left:-10px;
+}
+
+.affixedHeader.affix-top {
+  position: absolute;
+  top:40px;
+  width:inherit;
+}
+
+.footnav-row {
+  //position: fixed;
+  //bottom: 0;
+  //width: inherit;
+  margin-top: 100px;
+}
+.footnav-row .span12 {
+  //min-height: 18px;
+}
+.footnav {
+  //background-color: white;
+  font-size: 0.8em;
+  color: #999999;
+}
+.footnav .dz-social {
+  margin-left: 20px;
+}
+ul.nav-child-wrapper {
+  margin-bottom: 0;
+    
+}
+.social-btn {
+  margin-bottom: -3px;
+  margin-left: 3px;
+  //letter-spacing: 1px;
+  //font-size: .9em;
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  background-image: url( 'http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/social-sprites_20.png' );
+  background-size: 72px 36px;
+  background-repeat: no-repeat;
+  //background-position: 18px 0;
+}
+.social-btn:hover {
+  background-position-y: -18px;
+}
+.social-btn.facebook {
+  background-position: 0 0;
+}
+.social-btn.facebook:hover {
+  background-position: 0 -18px;
+}
+.social-btn.twitter {
+  background-position: -18px 0;
+}
+.social-btn.twitter:hover {
+  background-position: -18px -18px;
+}
+.social-btn.instagram {
+  background-position: -36px 0;
+}
+.social-btn.instagram:hover {
+  background-position: -36px -18px;
+}
+.social-btn.subscribe {
+  background-position: -54px 0;
+}
+.social-btn.subscribe:hover {
+  background-position: -54px -18px;
+}
+
+.bookstore_buy{
+  height:28px;
+}
+
+@media screen and (max-width:767px){
+  .affix {
+    left:20px;
+    right:20px;
+    width:auto;
+  }
+}
+
+.post-focus-navbar-fix {
+  margin-top:34px;
+}
+.download_button {
+  position: absolute;
+  top:5px;
+  left:5px;
+  opacity: 0.5;
+}
+/*---------------STYLE------------------------------*/
+
+.pagination .non_paged_pagination li a, .pagination .non_paged_pagination li span {
+  //border:0;
+  //content: "";
+}
+.pagination {
+  margin-top: 0;
+}
+
+.pagination ul.non_paged_pagination {
+  //-webkit-box-shadow: none;
+  //-moz-box-shadow: none;
+  //box-shadow: none;
+}
+
+.pagination .prev-arrow img, .pagination .next-arrow img {
+  padding-bottom: 2px;
+}
+
+.pagination .next-arrow {
+  //background-image: url('images/dz_sprites.png');
+  //background-position-x: 30px;
+}
+
+.dz_search_list h3 {
+  border-bottom: 1px solid #DDD;
+  margin-top: 60px;
+}
+
+/*-------------------------------------------------------*/
+/*--------------------NAV BAR----------------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+.dz-logo {
+  display: table-cell;
+  vertical-align: top;
+  text-align: top;
+  width: 103px;
+  padding-top: 4px;
+}
+.dz-nav {
+  display: table;
+  position: relative;
+}
+.dz-nav ul {
+  display: table-cell;
+}
+@media screen and ( min-width: 979px ) {
+  .dz-nav .btn.btn-navbar {
+    display: none;
+  }
+}
+.dz-nav .btn.btn-navbar {
+  background-color: transparent;
+  background-image: none;
+  border:none;
+  box-shadow:none;
+  margin-top:2px;
+  padding-left:15px;
+  padding-right:15px;
+}
+.dz-nav .btn.btn-navbar:hover {
+  background-color: #EEE;
+  
+}
+.dz-nav .nav-collapse .nav > li > a {
+  font-weight: normal;
+}
+
+
+/*---------------STYLE------------------------------*/
+
+
+
+/*-------------------------------------------------------*/
+/*--------------------ARTIST LIST------------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+/*---------------STYLE------------------------------*/
+.dz-artist-all li {
+  font-size: 14px;
+}
+
+/*-------------------------------------------------------*/
+/*--------------------GRID POSITIONING-------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+.dz-grid-item:nth-child(3n+1) {
+  margin-left: 0;
+}
+.dz-grid-item {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.grid-placeholder {
+  padding-top: 100%;
+}
+.dz-grid-item .thumbnail {
+  position: absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  padding:0;
+}
+.dz-grid-item-holder {
+  height: 84%;
+  width: 84%;
+  margin: 8% auto;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dz-grid-item img {
+  display: none;
+}
+.dz-grid-item-inner {
+  background-color: rgba( 255, 255, 255, 1 );
+  position: absolute;
+  bottom:0;
+  width: 84%;
+  padding-bottom: 10px;
+}
+.dz-grid-item h3 {
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+/*---------------STYLE------------------------------*/
+.dz-grid-item h3 {
+  font-size: 1em;
+  line-height: 1.3em;
+  font-weight: normal;
+}
+
+
+@media screen and ( max-width: 767px ) {
+  .dz-grid ul.thumbnails::after {
+    clear: none;
+  }
+  .dz-grid ul.thumbnails li[class*="span"] {
+    width: 31.491712707182323%;
+    float: left;
+  }
+  .dz-grid ul.thumbnails .dz-grid-item {
+    margin-left: 2.7624309392265194%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.non-dzwplb-wrapper {
+  position: relative;
+}
+
+
+/*-----------------------------*/
+/*------SPECIFIC PROJECTS------*/
+/*-----------------------------*/
+
+
+
+/*----------------------*/
+/*-----Grid Positioning-*/
+/*----------------------*/
+
+/*------St
+
+/*---GRID ADJUSTMENTS--*/
+
+
+
+
+
+
+
+
+
+
+/*-------------------------------------------------------*/
+/*--------------------dzCAROUSEL-------------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+.carousel .item {-webkit-transition: opacity 1s; -moz-transition: opacity 1s; -ms-transition: opacity 1s; -o-transition: opacity 1s; transition: opacity 1s;}
+.carousel .active.left {left:0;opacity:0;z-index:2;}
+.carousel .next {left:0;opacity:1;z-index:1;}
+
+#dzCarousel .carousel-caption {
+  height: 70px;
+  background-color: white;
+  text-align: left;
+}
+#dzCarousel .carousel-caption.override-caption {
+  bottom: auto;
+  top:0;
+  height: 508px;
+}
+#dzCarousel .carousel-image img {
+  padding-bottom: 100px;
+}
+#dzCarousel {
+  margin-top: 10%;
+}
+@media screen and ( max-width: 767px ) {
+  #dzCarousel {
+    margin-top: 0;
+  }
+}
+@media screen and ( max-width: 480px ) {
+  #dzCarousel .carousel-caption {
+    position: absolute;
+  }
+}
+
+/*---------------STYLE------------------------------*/
+
+#dzCarousel .carousel-caption h3 {
+  font-weight: 300;
+  font-size: 30px;
+  margin: 0;
+  line-height: 30px;
+}
+
+#dzCarousel .carousel-caption h4 {
+  font-weight: 200;
+  font-size: 12px;
+  margin:0;
+  color: #888;
+}
+
+.carousel-indicators {
+  top: auto;
+  right: auto;
+  bottom: 80px;
+  left: 0;
+}
+.carousel-indicators li {
+  background-color: rgba( 0, 0, 0, 0.25 );
+}
+
+.carousel-indicators li.active {
+  background-color: rgba( 0, 0, 0, 0.5 );
+}
+@media screen and ( max-width: 480px ) {
+  #dzCarousel .carousel-caption h3 {
+    font-size: 16px;
+    line-height: 16px;
+    margin-top: 16px;
+  }
+}
+
+/*-------------------------------------------------------*/
+/*--------------------twoColCAROUSEL-----------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+#twoColCarousel .carousel-image img {
+  padding-bottom: 300px;
+}
+
+#twoColCarousel .carousel-caption {
+  height:270px;
+  background: white;
+}
+#twoColCarousel .carousel-caption p {
+  color: #333;
+}
+#twoColCarousel .carousel-indicators {
+  display: none;
+}
+
+/*---------------STYLE------------------------------*/
+
+
+/*-------------------------------------------------------*/
+/*--------------------ConstrainedScrolling---------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+.constrainedCol {
+  height: 450px;
+  overflow-y: scroll;
+}
+
+/*---------------STYLE------------------------------*/
+
+/*---------->>>SCROLLBARS<<<--------------*/
+/* Turn on a 13x13 scrollbar */
+
+.constrainedCol::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+ 
+/* Turn on single button up on top, and down on bottom */
+.constrainedCol::-webkit-scrollbar-button:start:decrement,
+.constrainedCol::-webkit-scrollbar-button:end:increment {
+    display: block;
+}
+ 
+/* Turn off the down area up on top, and up area on bottom */
+.constrainedCol::-webkit-scrollbar-button:vertical:start:increment,
+.constrainedCol::-webkit-scrollbar-button:vertical:end:decrement {
+    display: none;
+}
+ 
+/* Place The scroll down button at the bottom */
+.constrainedCol::-webkit-scrollbar-button:vertical:increment {
+    display:none;
+}
+ 
+/* Place The scroll up button at the up */
+.constrainedCol::-webkit-scrollbar-button:vertical:decrement {
+    display:none;
+}
+ 
+/* Track below and above */
+.constrainedCol::-webkit-scrollbar-track-piece {
+    background-color: #999;
+}
+ 
+/* The thumb itself */
+.constrainedCol::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: #333;
+}
+ 
+/* Corner */
+.constrainedCol::-webkit-scrollbar-corner:vertical {
+    background-color: black;
+}
+
+
+
+/*-------------------------------------------------------*/
+/*--------------------WPCONTENT RESPONSIVE SIZING--------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+@media screen and ( min-width:1200px ) {
+  .responsive.size-medium {
+    max-width: 300px;
+    max-height: auto;
+  }
+  .responsive.size-medium.alignleft {
+    margin: 0 10px 5px 0;
+  }
+}
+@media screen and ( min-width:980px ) and ( max-width: 1199px ) {
+  .responsive.size-medium {
+    max-width: 240px;
+    max-height: auto;
+  }
+  .responsive.size-medium.alignleft {
+    margin: 0 5px 5px 0;
+  }
+}
+@media screen and ( min-width:768px ) and ( max-width: 979px ) {
+  .responsive.size-medium {
+    max-width: 180px;
+    max-height: auto;
+  }
+  .responsive.size-medium.alignleft {
+    margin: 0;
+  }
+}
+@media screen and (min-width: 480px) and ( max-width: 767px ) {
+  .responsive.size-medium {
+    max-width: 50%;
+    max-height: auto;
+  }
+  .responsive.size-medium.alignleft {
+    margin: 0 10px 5px 0;
+  }
+}
+@media screen and ( max-width: 480px ) {
+  .responsive.size-medium {
+    max-width: auto;
+    max-height: auto;
+    width:100%;
+    padding: 0 0 10px 0;
+  }
+  .responsive.size-medium.alignleft {
+    margin: 0 0 10px 0;
+  }
+}
+
+/*-----------------2px full content fix----------------*/
+@media screen and ( min-width: 1199px ) {
+  .row-fluid.dz_image_with_content .span10 {
+    width: 600px;
+  }
+  .row-fluid.dz_image_with_content .span2 {
+    width: 102px;
+  }
+}
+
+
+/*-------------------------------------------------------*/
+/*--------------------NEWS/POSTS-------------------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+.post-content {
+  padding-top: 10px;
+}
+
+/*---------------STYLE------------------------------*/
+
+h2.post-title {
+  margin: 0;
+  font-weight: 400;
+}
+h3.post-subtitle {
+  margin: 0;
+  font-size: 16px;
+  line-height: 16px;
+}
+p {
+  margin: 0;
+}
+
+/*-------------------------------------------------------*/
+/*--------------------STANDARD GROUPED LIST--------------*/
+/*-------------------------------------------------------*/
+
+/*---------------STRUCTURE--------------------------*/
+
+.grouped-item {
+  padding: 20px 0;
+}
+.grouped-list > .grouped-item:first-child {
+  padding-top:0;
+}
+.grouped-item dl {
+  margin-top: 0;
+  margin-right: 10px;
+}
+.grouped-item dd, .two-col-item dd, .one-col-item dd {
+  margin-left: 0;
+}
+.grouped-list hr {
+  margin: 0;
+}
+.two-col-item {
+  margin-bottom: 30px;
+}
+.grouped-item .grouped-image {
+  width: 175px;
+}
+.grouped-item .grouped-image.grouped-image-type-fair {
+  width: 100px;
+}
+.grouped-list-content {
+  margin-bottom: 40px;
+}
+.two-col-caption dt {
+  font-weight: normal;
+}
