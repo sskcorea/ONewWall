@@ -8,7 +8,6 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('domain', process.env.DOMAIN || '127.0.0.1:' + app.get('port'));
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -164,45 +163,22 @@ app.get('/page/artists/:id', function(req, res, next) {
 });
 
 // artists page
-app
-		.get(
-				'/artists',
-				function(req, res, next) {
-					var files;
-					var html = '';
-					var root = path.join(__dirname, '/public/page/',
-							req.route.path);
-					var data_preview = undefined;
-
-					files = fs.readdirSync(root);
-
-					for (i in files) {
-						if (fs.statSync(path.join(root, files[i]))
-								.isDirectory()) {
-							data_preview = undefined;
-							artists_files = fs.readdirSync(path.join(root,
-									files[i]));
-							for (j in artists_files) {
-								if (path.extname(artists_files[j]) === '.jpg') {
-									data_preview = artists_files[j];
-									break;
-								}
-							}
-							if (data_preview) {
-								html += '<li><a href="/page/artists/'
-										+ files[i]
-										+ '" data-preview="/page/artists/'
-										+ files[i] + '/' + data_preview + '">'
-										+ files[i] + '</a></li>';
-							} else {
-								html += '<li><a href="/page/artists/'
-										+ files[i] + '">' + files[i]
-										+ '</a></li>';
-							}
-						}
-					}
-					res.send(html);
-				});
+app.get('/artists',	function(req, res, next) {
+	var root = path.join(__dirname, '/public/data/artists');
+	var files = fs.readdirSync(root);
+	var artists=[];
+	
+	for (i in files) {
+		if (fs.statSync(path.join(root, files[i])).isDirectory()) {
+			artists.push({
+				name: files[i],
+			});
+		}
+	}
+	res.render('artists', {
+		'artists': artists
+	});
+});
 
 // main page
 app

@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+  head
+    title Artists &raquo; David Zwirner
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span12.dz-artist-all
+              h1.page-title.screen-adjusting-text
+                a(href='/artists/') Artists
+              .page-subtitle &NonBreakingSpace;
+              .row-fluid
+                .span12.content-container
+                  .row-fluid
+                    .span3
+                      ul.nav.nav-pills.nav-stacked
+                        each artist in artists
+                          li
+                            a(href='/artists/#{artist.name}') #{artist.name}
+          include footer
+    include script_src
