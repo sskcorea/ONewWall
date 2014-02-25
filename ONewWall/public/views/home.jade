@@ -80,25 +80,15 @@ html(lang='en')
                   .item.active
                     .carousel-image
                       a(href='/exhibition/doug-wheeler-2/')
-                        img(src='/data/main/tool-story.jpg', width='800')
+                        img(src='#{img_src}', width='800')
                     .carousel-caption
                       h3
-                        a(href='/exhibition/doug-wheeler-2/') Doug Wheeler
-                      h4 2013. 12. 20 Fri. - 2014. 02. 02 Sun.
-                      h4 Opening 2013. 12. 20 Fri. 05 : 00pm
+                        a(href='/exhibition/doug-wheeler-2/') #{artist_name}
+                      each line in memo
+                        h4 #{line.text}
                 // Carousel nav
                   <a class="carousel-control left" href="#dzCarousel" data-slide="prev">&lsaquo;</a>
                     <a class="carousel-control right" href="#dzCarousel" data-slide="next">&rsaquo;</a>
-          .row-fluid.footnav-row
-            .span12
-              .footnav
-                span.dz-copyright &copy; 2014 David Zwirner&comma; New York&sol;London
-                span.dz-social
-                  a(href='/subscribe') subscribe
-                  | &amp; follow us&colon;
-                  a.social-btn.facebook(href='https://www.facebook.com/pages/David-Zwirner-Gallery/108321019260556', data-toggle='tooltip', title='facebook', target='_blank')
-                  a.social-btn.twitter(href='https://twitter.com/davidzwirner', data-toggle='tooltip', title='twitter', target='_blank')
-                  a.social-btn.instagram(href='http://instagram.com/davidzwirner', data-toggle='tooltip', title='instagram', target='_blank')
-                  a.social-btn.subscribe(href='/subscribe/', data-toggle='tooltip', title='Subscribe', target='_blank')
+          include footer
     include script_src
     

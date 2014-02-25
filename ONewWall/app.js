@@ -46,6 +46,44 @@ app.all('*', function(req, res, next) {
 	next();
 });
 
+
+//first page
+app.get('/', function(req, res, next) {
+	var root_path = path.join(__dirname, '/public/data/main');
+	var file_path;
+	
+	var files = fs.readdirSync(root_path);
+	var title, artist_name, img_src;
+	var memo=[];
+	
+	for (i in files) {
+		file_path = path.join(root_path, files[i]);
+		if(files[i] === 'DESC.txt'){
+			var line = fs.readFileSync(file_path).toString().split("\n");
+			
+			for (j in line) {
+				if(j==0) {
+					title = line[j];
+				}
+				else if(j==1){
+					artist_name = line[j];
+				}
+				else {
+					memo.push({'text': line[j]});
+				}
+			}
+		}else if (path.extname(files[i]) === '.jpg') {
+			img_src = '/data/main/' + files[i];
+		}
+	}
+	res.render('home', {
+		'artist_name': artist_name, 
+		'title': title,
+		'memo': memo,
+		'img_src': img_src
+	});
+});
+
 // artist main page
 app.get('/page/artists/:id', function(req, res, next) {
 	console.log(req.params.id + '\'s page start!');
@@ -223,14 +261,3 @@ app
 					}
 					res.send(html);
 				});
-
-//first page
-app.get('/', function(req, res, next) {
-	var files = fs.readdirSync(path.join(__dirname, '/public/data/main'));
-	for (i in files) {
-		if(files[i] === 'DESC.txt'){
-			
-		}
-	}
-	res.render('home');
-});
