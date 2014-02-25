@@ -54,13 +54,29 @@ app.get('/', function(req, res, next) {
 app.get('/page/artists/:id', function(req, res, next) {
 	console.log(req.params.id);
 	
-	var root = path.join(__dirname, '/public/page/artists/',
-			req.params.id);
-	var files = fs.readdirSync(root);
+	// artists list
+	var root = path.join(__dirname, '/public/page/artists/');
+	var artist_folder = path.join(root, req.params.id);
+	
+	var root_files = fs.readdirSync(root);
+	var artist_files = fs.readdirSync(artist_folder);
+	var artist_lists=[];
 	var p=[];
-	for (i in files) {
-		if (files[i] === "DESC.txt") {
-			var line = fs.readFileSync(path.join(root, files[i])).toString().split("\n");
+	
+	for (i in root_files){
+		
+		if (fs.statSync(path.join(root, root_files[i])).isDirectory()) {
+			console.log('root_files is directory: ' + root_files[i]);
+			artist_lists.push({
+				'name': root_files[i],
+				'href': '/page/artists/' + root_files[i]
+			});
+		}
+		console.log(artist_lists);
+	}
+	for (i in artist_files) {
+		if (artist_files[i] === "DESC.txt") {
+			var line = fs.readFileSync(path.join(artist_folder, artist_files[i])).toString().split("\n");
 			
 			for (j in line) {
 				p[j] = {text: line[j]};
@@ -69,7 +85,7 @@ app.get('/page/artists/:id', function(req, res, next) {
 		}
 	}
 	res.render('artist', { 'artist_name': req.params.id, 
-		'href': '/page/artists/park juhyun/',
+		'artist_lists': artist_lists,
 		'p': p
 		});
 });
