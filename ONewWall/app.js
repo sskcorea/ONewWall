@@ -100,12 +100,13 @@ app.get('/artists',	function(req, res, next) {
 	for(ii in artists){
 		if(ii == 0){
 			html += '<div class="span3"><ul class="nav nav-pills nav-stacked">';
-			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '>' + artists[ii].name + '</a>';
+			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '">' + artists[ii].name + '</a>';
 		} else if(ii % 9 == 0){
 			html += '</div><div class="span3"><ul class="nav nav-pills nav-stacked">';
-			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '>' + artists[ii].name + '</a>';
+			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '">' + artists[ii].name + '</a>';
+		}else{
+			html += '<li><a href="/artist/' + artists[ii].name + '">' + artists[ii].name + '</a>';
 		}
-		html += '<li><a href="/artist/' + artists[ii].name + '>' + artists[ii].name + '</a>';
 	}
 	html += '</div>';
 	console.log(html);
