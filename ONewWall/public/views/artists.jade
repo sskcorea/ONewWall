@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Artists &raquo; David Zwirner
+    title Artists &raquo; O'NewWall
     include header
   body
     .container
@@ -20,6 +20,6 @@ html(lang='en')
                       ul.nav.nav-pills.nav-stacked
                         each artist in artists
                           li
-                            a(href='/artists/#{artist.name}') #{artist.name}
+                            a(href='/artist/#{artist.name}') #{artist.name}
           include footer
-    include script_src
+    include scripts

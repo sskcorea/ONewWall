@@ -83,85 +83,6 @@ app.get('/', function(req, res, next) {
 	});
 });
 
-// artist main page
-app.get('/page/artists/:id', function(req, res, next) {
-	console.log(req.params.id + '\'s page start!');
-
-	var root = path.join(__dirname, '/public/page/artists/');
-	var artist_folder = path.join(root, req.params.id, 'exhibitions/main');
-	
-	var root_files = fs.readdirSync(root);
-	var artist_files = fs.readdirSync(artist_folder);
-	var artist_lists=[];
-	var exhibition_desc=[];
-	var artworks=[];
-	var title;
-	var subtitle;
-	var img_count=0;
-	
-	// artists list
-	for (i in root_files){
-		
-		if (fs.statSync(path.join(root, root_files[i])).isDirectory()) {
-			artist_lists.push({
-				'name': root_files[i],
-				'href': '/page/artists/' + root_files[i]
-			});
-		}
-	}
-	
-	// description of exhibition
-	for (var ii in artist_files) {
-		if (artist_files[ii] === 'README.txt') continue;
-		
-		if (artist_files[ii] === "DESC.txt") {
-			var line = fs.readFileSync(path.join(artist_folder, artist_files[ii])).toString().split("\n");
-			
-			for (j in line) {
-				if(j==0) {
-					title = line[j];
-				}
-				else if(j==1){
-					subtitle = line[j];
-				}
-				else {
-					exhibition_desc.push({'text': line[j]});
-				}
-			}
-		}else{
-			if(path.extname(artist_files[ii]) === ".txt"){
-				var line = fs.readFileSync(path.join(artist_folder, artist_files[ii])).toString().split("\n");
-				
-				artworks.push({
-					'src': '/page/artists/' + req.params.id + '/exhibitions/main/' + artist_files[ii].replace("txt","jpg"),
-					'data': '/page/artists/' + req.params.id + '/exhibitions/main/' + artist_files[ii].replace("txt","jpg"),
-					'title': title,
-					'subtitle' : subtitle,
-					'name': line[1],
-					'year': line[2],
-					'materials': line[3],
-					'size': line[4]
-				});
-				img_count++;
-			}
-		}
-	}
-	
-	console.log(artist_lists);
-	console.log(exhibition_desc);
-	console.log(artworks);
-	console.log(img_count);
-	// description of artworks
-	res.render('artist', { 
-		'artist_name': req.params.id, 
-		'artist_lists': artist_lists,
-		'title': title,
-		'exhibition_desc': exhibition_desc,
-		'artworks' : artworks,
-		'img_count': img_count
-	});
-});
-
 // artists page
 app.get('/artists',	function(req, res, next) {
 	var root = path.join(__dirname, '/public/data/artists');
@@ -180,60 +101,28 @@ app.get('/artists',	function(req, res, next) {
 	});
 });
 
-// main page
-app
-		.get(
-				'/main',
-				function(req, res, next) {
-					var root = path.join(__dirname, '/public/page/main');
-					var dirname;
-					var files;
-					var html = '';
-					files = fs.readdirSync(root);
-					for (i in files) {
-						if (fs.statSync(path.join(root, files[i]))
-								.isDirectory()) {
-							var src = '';
-							var h1 = '', h2 = '', h3 = '';
-							var exhibition_files;
-
-							dirname = files[i];
-							exhibition_files = fs.readdirSync(path.join(root,
-									dirname));
-
-							for (j in exhibition_files) {
-								if (path.extname(exhibition_files[j]) === ".txt") {
-									var line = fs.readFileSync(
-											path.join(root, dirname,
-													exhibition_files[j]))
-											.toString().split("\n");
-									for (j in line) {
-										if (j == 0) {
-											h1 = "<h1>" + line[j] + "</h1>";
-										} else if (j == 1) {
-											h2 = "<h2>" + line[j] + "</h2>";
-										} else {
-											h3 += "<h3>" + line[j] + "</h3>";
-										}
-									}
-
-								} else if (path.extname(exhibition_files[j]) === '.jpg') {
-									src = path.join('/page/main/', dirname,
-											exhibition_files[j]);
-								}
-							}
-							// active tab
-							if (i == 0) {
-								html += '<section class="slide featured ff active-slide">';
-							} else {
-								html += '<section class="slide featured ff" style="opacity: 0; display: none;">';
-							}
-							html += ' <img class="ff" src='
-									+ src
-									+ ' style="max-width:700px; max-height: 600px"/><div class="text ff "><header><hgroup>'
-									+ h1 + h2 + ' </hgroup></header>' + h3
-									+ ' </div> </section>';
-						}
-					}
-					res.send(html);
-				});
+//artist page
+app.get('/artist/:id',	function(req, res, next) {
+	var root = path.join(__dirname, '/public/data/artists/', req.params.id);
+	var files = fs.readdirSync(root);
+	var image='';
+	var desc=[];
+	
+	for(i in files){
+		if (files[i] === "DESC.txt") {
+			var line = fs.readFileSync(path.join(root, files[i])).toString().split("\n");
+			
+			for (j in line) {
+				desc.push({'text': line[j]});
+			}
+		}else if (path.extname(files[i]) === '.jpg') {
+			image = path.join('/data/main/', files[i]);
+		}
+	}
+	res.render('artist', {
+		'name': req.params.id,
+		'birthday': '1979',
+		'image': image,
+		'desc':desc
+	});
+});
