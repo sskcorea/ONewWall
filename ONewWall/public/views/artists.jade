@@ -16,10 +16,6 @@ html(lang='en')
               .row-fluid
                 .span12.content-container
                   .row-fluid
-                    .span3
-                      ul.nav.nav-pills.nav-stacked
-                        each artist in artists
-                          li
-                            a(href='/artist/#{artist.name}') #{artist.name}
+                    !{html_string}
           include footer
     include scripts

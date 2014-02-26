@@ -12,8 +12,6 @@ html(lang='en')
             .span9
               h1.page-title.screen-adjusting-text
                 a(href='/artworks/#{artist.name}/') #{artist.name}
-                &nbsp;
-                small b&period; #{artist.year}
               h2.page-subtitle Artworks
               .row-fluid.content-container.dz-grid
                 .span10
@@ -28,33 +26,6 @@ html(lang='en')
                               each desc in item.descs
                                 h3 #{desc.text}
                                 p #{item.year}
-                .span2
-                  .pagination.pagination-centered
-                    ul.non_paged_pagination
-                      li.disabled
-                        span.prev-arrow
-                          img(src='/themes/arrow_left_disabled.png')
-                      li
-                        a.pagination-next.next-arrow(href='http://www.davidzwirner.com/artists/carol-bove/survey/page/2/')
-                          img(src='/themes/arrow_right.png')
-              .row-fluid
-                .span10
-                  .pagination.pagination-centered
-                    ul.paged_pagination
-                      li.disabled
-                        span.prev-arrow
-                          img(src='/themes/arrow_left_disabled.png')
-                      li.active
-                        span 1
-                      li
-                        a(href='http://www.davidzwirner.com/artists/carol-bove/survey/page/2/') 2
-                      li
-                        a(href='http://www.davidzwirner.com/artists/carol-bove/survey/page/3/') 3
-                      li
-                        a(href='http://www.davidzwirner.com/artists/carol-bove/survey/page/4/') 4
-                      li
-                        a.pagination-next.next-arrow(href='http://www.davidzwirner.com/artists/carol-bove/survey/page/2/')
-                          img(src='/themes/arrow_right.png')
             .span3
               .sidebar
                 ul.nav.nav-pills.nav-stacked

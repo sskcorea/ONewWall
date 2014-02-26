@@ -88,6 +88,7 @@ app.get('/artists',	function(req, res, next) {
 	var root = path.join(__dirname, '/public/data/artists');
 	var files = fs.readdirSync(root);
 	var artists=[];
+	var html='';
 	
 	for (i in files) {
 		if (fs.statSync(path.join(root, files[i])).isDirectory()) {
@@ -96,8 +97,21 @@ app.get('/artists',	function(req, res, next) {
 			});
 		}
 	}
+	for(ii in artists){
+		if(ii == 0){
+			html += '<div class="span3"><ul class="nav nav-pills nav-stacked">';
+			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '>' + artists[ii].name + '</a>';
+		} else if(ii % 9 == 0){
+			html += '</div><div class="span3"><ul class="nav nav-pills nav-stacked">';
+			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '>' + artists[ii].name + '</a>';
+		}
+		html += '<li><a href="/artist/' + artists[ii].name + '>' + artists[ii].name + '</a>';
+	}
+	html += '</div>';
+	console.log(html);
 	res.render('artists', {
-		'artists': artists
+		'artists': artists,
+		'html_string':html
 	});
 });
 
@@ -134,11 +148,12 @@ app.get('/artworks/:id',	function(req, res, next) {
 	var image_path='';
 	var lines;
 	var artworks=[];
+	var cnt=0;
 	
 	if(fs.existsSync(root)){
 		 files = fs.readdirSync(root);
 		 for(i in files){
-			if (path.extname(files[i]) === ".jpg") {
+			if (path.extname(files[i]) === ".jpg" || path.extname(files[i]) === ".JPG" ) {
 				image_path = '/data/artists/' + req.params.id + '/artworks/'+ files[i];
 				desc_path = path.join(root, files[i].replace("jpg","txt"));
 				
@@ -151,7 +166,7 @@ app.get('/artworks/:id',	function(req, res, next) {
 				}
 				
 				artworks.push({
-					image: image_path, 
+					image: image_path,
 					name:files[i].replace(".jpg",""),
 					descs:descs
 				});
