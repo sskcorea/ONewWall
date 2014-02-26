@@ -17,16 +17,17 @@ html(lang='en')
               h2.page-subtitle Artworks
               .row-fluid.content-container.dz-grid
                 .span10
-                  each item in artworks
-                    ul.thumbnails
+                  ul.thumbnails
+                    each item in artworks
                       li.span4.unfloat.dz-grid-item
                         .grid-placeholder
                         a.thumbnail.hover-slider(href='/data/artists/Park juhyun/artworks/#{artist.name}/#{item.name}/')
                           .dz-grid-item-holder(style='background-image:url("#{item.image}");')
                             img(src='#{item.image}')
                             .dz-grid-item-inner.slide-up
-                              h3 #{item.name}
-                              p #{item.year}
+                              each desc in item.descs
+                                h3 #{desc.text}
+                                p #{item.year}
                 .span2
                   .pagination.pagination-centered
                     ul.non_paged_pagination
