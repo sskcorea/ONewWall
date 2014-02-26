@@ -14,11 +14,11 @@ html(lang='en')
                 .carousel-inner
                   .item.active
                     .carousel-image
-                      a(href='/views/#{artist_name}/')
+                      a(href='/artist/#{artist_name}/')
                         img(src='#{img_src}', width='800')
                     .carousel-caption
                       h3
-                        a(href='/views/#{artist_name}/') #{artist_name}
+                        a(href='/artist/#{artist_name}/') #{artist_name}
                       each line in memo
                         h4 #{line.text}
           include footer
