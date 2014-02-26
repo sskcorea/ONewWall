@@ -126,3 +126,27 @@ app.get('/artist/:id',	function(req, res, next) {
 		'desc':desc
 	});
 });
+
+// artworks
+app.get('/artworks/:id',	function(req, res, next) {
+	var root = path.join(__dirname, '/public/data/artists/', req.params.id, 'artworks');
+	var files = fs.readdirSync(root);
+	var artist='';
+	var artworks=[];
+	var image_path='';
+	
+	for(i in files){
+		if (path.extname(files[i]) === ".jpg") {
+			image_path = '/data/artists/' + req.params.id + '/artworks/'+ files[i];
+			artworks.push({image: image_path, name:files[i].replace("jpg","")});
+		}
+	}
+
+	res.render('artworks',{
+		'artist': {
+			name: req.params.id,
+			year: '1979'
+		},
+		'artworks': artworks
+	});
+});
