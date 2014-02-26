@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    title Artwork &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span9
+              h1.page-title.screen-adjusting-text
+                a(href='/artists/#{artist.name}/') #{artist.name}
+              h2.page-subtitle Selected Artworks
+              .row-fluid.content-container.dz_image_with_content
+                .span10
+                  div
+                    .dzwplb-wrapper
+                      img.dzwplb-active.dzwplb-image(src='/data/artists/#{artist.name}/artworks/#{artwork.name}')
+                    .dz-image-content
+                      each line in desc
+                        p
+                          | #{line.text}
+            .span3
+              .sidebar
+                ul.nav.nav-pills.nav-stacked
+                  li
+                    a(href='/artworks/') Artworks
+          include footer
+    include scripts

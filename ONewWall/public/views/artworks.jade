@@ -19,17 +19,11 @@ html(lang='en')
                     each item in artworks
                       li.span4.unfloat.dz-grid-item
                         .grid-placeholder
-                        a.thumbnail.hover-slider(href='/data/artists/Park juhyun/artworks/#{artist.name}/#{item.name}/')
+                        a.thumbnail.hover-slider(href='/artworks/#{artist.name}/#{item.name}/')
                           .dz-grid-item-holder(style='background-image:url("#{item.image}");')
                             img(src='#{item.image}')
                             .dz-grid-item-inner.slide-up
-                              each desc in item.descs
-                                h3 #{desc.text}
-                                p #{item.year}
-            .span3
-              .sidebar
-                ul.nav.nav-pills.nav-stacked
-                  li
-                    a(href='http://www.davidzwirner.com/artists/carol-bove/survey/') Artworks
+                              h3 #{item.title}
+                              p #{item.year}
           include footer
     include scripts

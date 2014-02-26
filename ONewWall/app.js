@@ -147,29 +147,17 @@ app.get('/artworks/:id',	function(req, res, next) {
 	var root = path.join(__dirname, '/public/data/artists/', req.params.id, 'artworks');
 	var files;
 	var image_path='';
-	var lines;
 	var artworks=[];
-	var cnt=0;
 	
 	if(fs.existsSync(root)){
 		 files = fs.readdirSync(root);
 		 for(i in files){
-			if (path.extname(files[i]) === ".jpg" || path.extname(files[i]) === ".JPG" ) {
+			if (path.extname(files[i]) === ".jpg") {
 				image_path = '/data/artists/' + req.params.id + '/artworks/'+ files[i];
-				desc_path = path.join(root, files[i].replace("jpg","txt"));
-				
-				var descs=[];
-				if(fs.existsSync(desc_path)){
-					lines = fs.readFileSync(desc_path).toString().split("\n");
-					for(j in lines){
-						descs.push({'text': lines[j]});
-					}
-				}
-				
 				artworks.push({
 					image: image_path,
-					name:files[i].replace(".jpg",""),
-					descs:descs
+					name:files[i],
+					title:files[i].replace(".jpg","")
 				});
 			}
 		}
@@ -180,5 +168,35 @@ app.get('/artworks/:id',	function(req, res, next) {
 			name: req.params.id
 		},
 		'artworks': artworks
+	});
+});
+
+//artworks
+app.get('/artworks/:artist/:artwork',	function(req, res, next) {
+	var filename = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks', req.params.artwork).replace('.jpg','.txt');
+	var lines;
+	var desc=[];
+
+	console.log(req.params.artist);
+	console.log(req.params.artwork);
+	console.log(filename);
+	
+	if(fs.existsSync(filename)){
+		lines = fs.readFileSync(filename).toString().split("\n");
+		for(i in lines){
+			desc.push({text:lines[i]});
+		}
+	}
+	
+	console.log(desc);
+	
+	res.render('artwork', {
+		artist:{
+			name: req.params.artist
+		},
+		artwork:{
+			name: req.params.artwork
+		},
+		desc:desc
 	});
 });
