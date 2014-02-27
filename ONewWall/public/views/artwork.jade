@@ -22,6 +22,15 @@ html(lang='en')
                       each line in desc
                         p
                           | #{line.text}
+                .span2
+                  .pagination.pagination-centered
+                    ul.non_paged_pagination
+                      li.disabled
+                        span.prev-arrow
+                          img(src='http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/arrow_left_disabled.png')
+                      li
+                        a.pagination-next.next-arrow(href='http://www.davidzwirner.com/artists/adel-abdessemed/survey-2/image/page/2/')
+                          img(src='http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/arrow_right.png')
             .span3
               .sidebar
                 ul.nav.nav-pills.nav-stacked
