@@ -25,12 +25,22 @@ html(lang='en')
                 .span2
                   .pagination.pagination-centered
                     ul.non_paged_pagination
-                      li.disabled
-                        span.prev-arrow
-                          img(src='http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/arrow_left_disabled.png')
-                      li
-                        a.pagination-next.next-arrow(href='http://www.davidzwirner.com/artists/adel-abdessemed/survey-2/image/page/2/')
-                          img(src='http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/arrow_right.png')
+                      if artwork.prev > 0
+                        li
+                          a.pagination-prev.prev-arrow(href='/artworks/#{artist.name}/#{artwork.artworks[artwork.prev].name}')
+                            img(src='/themes/arrow_left.png')
+                      else
+                        li.disabled
+                          span.prev-arrow
+                            img(src='/themes/arrow_left_disabled.png')
+                      if artwork.next > 0
+                        li
+                          a.pagination-next.next-arrow(href='/artworks/#{artist.name}/#{artwork.artworks[artwork.next].name}')
+                            img(src='/themes/arrow_right.png')
+                      else
+                        li.disabled
+                          span.next-arrow
+                            img(src='/themes/arrow_right_disabled.png')
             .span3
               .sidebar
                 ul.nav.nav-pills.nav-stacked

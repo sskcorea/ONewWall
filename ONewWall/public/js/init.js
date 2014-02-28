@@ -1,7 +1,7 @@
 $(document).ready( function() {
 
-	if ( window.location.origin == "http://localhost:8888") {
-		var dzDomain = "http://localhost:8888/DZMAMP";
+	if ( window.location.origin == "http://localhost:3000") {
+		var dzDomain = "http://localhost:3000";
 	} else {
 		var dzDomain = window.location.origin;
 	}

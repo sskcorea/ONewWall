@@ -32,6 +32,7 @@ app.use(function(err, req, res, next) {
 // development only
 if ('development' === app.get('env')) {
 	app.use(express.errorHandler());
+	app.locals.pretty = true;
 }
 
 http.createServer(app).listen(app.get('port'), function() {
@@ -174,12 +175,14 @@ app.get('/artworks/:id',	function(req, res, next) {
 //artworks
 app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 	var filename = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks', req.params.artwork).replace('.jpg','.txt');
+	var dirname = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks');
 	var lines;
+	var files;
 	var desc=[];
-
-	console.log(req.params.artist);
-	console.log(req.params.artwork);
-	console.log(filename);
+	var artworks=[];
+	var current=-1;
+	var prev=-1;
+	var next=-1;
 	
 	if(fs.existsSync(filename)){
 		lines = fs.readFileSync(filename).toString().split("\n");
@@ -188,14 +191,41 @@ app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 		}
 	}
 	
-	console.log(desc);
+	console.log(dirname);
+	if(fs.existsSync(dirname)){
+		console.log(dirname);
+		files = fs.readdirSync(dirname);
+		console.log(files);
+		for(ii in files){
+			if (path.extname(files[ii]) === '.jpg') {
+				if(files[ii] === req.params.artwork){
+					current = ii;
+					if(ii>0)
+						prev = Number(ii)-1;
+					if(files.length > Number(ii)+1)
+						next = Number(ii)+1;
+				}
+				console.log(files[ii]);
+				artworks.push({name:files[ii]});
+			}
+		}
+	}
+	
+	console.log(artworks);
+	console.log(current);
+	console.log(prev);
+	console.log(next);
 	
 	res.render('artwork', {
 		artist:{
 			name: req.params.artist
 		},
 		artwork:{
-			name: req.params.artwork
+			name: req.params.artwork,
+			artworks:artworks, 
+			current:current,
+			prev:prev,
+			next:next
 		},
 		desc:desc
 	});
