@@ -137,7 +137,7 @@ app.get('/artist/:id',	function(req, res, next) {
 	}
 	res.render('artist', {
 		'name': req.params.id,
-		'birthday': '1979',
+		//'birthday': '1979',
 		'image': image,
 		'desc':desc
 	});
@@ -233,7 +233,17 @@ app.get('/about',	function(req, res, next) {
 	res.render('about');
 });
 
-//about
+//contacts
 app.get('/contacts',	function(req, res, next) {
 	res.render('contacts');
+});
+
+//direction
+app.get('/location',	function(req, res, next) {
+	res.render('location');
+});
+
+//members
+app.get('/members',	function(req, res, next) {
+	res.render('members');
 });

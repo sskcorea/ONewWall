@@ -14,13 +14,13 @@ html(lang='en')
                 a(href='artist/#{name}/') #{name}
                 &nbsp;
                 if(birthday)
-                  small b&period; #{birthday}
+                  //small b&period; #{birthday}
               .page-subtitle &NonBreakingSpace;
               .row-fluid.content-container.dz_image_with_content
                 .span10
                   div
                     .non-dzwplb-wrapper
-                      img(src='#{image}')
+                      img(src='#{image}', style="max-width:800px; max-height:600px;")
                       .dzwplb-captions
                         .dzwplb-caption.dzwplb-caption-active(data-captionid='58277')
                           small

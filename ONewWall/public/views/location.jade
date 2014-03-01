@@ -1,0 +1,41 @@
+doctype html
+html(lang='en')
+  head
+    title Direction &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span9
+              h1.page-title.screen-adjusting-text
+                a(href='/direction/') Location
+              h2.page-subtitle
+                a(href='https://www.google.com/maps/place/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD+%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%84%B1%EB%B6%81%EA%B5%AC+%EC%84%B1%EB%B6%81%EB%8F%99+52/@37.5892757,126.996516,15z/data=!4m2!3m1!1s0x357cbcd7a1cce011:0x6286ad3aba914e0') Click Google Map
+              .row-fluid.content-container.dz_full_content
+                .span10
+                  div
+                    p
+                    .dz_splash_image
+                      img(src='/data/contact/direction.jpg', width='699', height='366')
+                    div
+                      p
+                      h3
+                        | 대중 교통 이용시 
+                      p
+                        | 지하철 4호선 한성대입구역 6번 출구 - 1111번, 2112번, 마을버스 3번 승차 - 성북초등학교 하차 후진 - 성북파출소 지나 우회전(수도 가압장, 선잠단지 사잇길) - 100m 직진
+                      p &NonBreakingSpace;
+                      p
+                      h3
+                        | 입반 차량 이용시
+                      p
+                        | 한성대입구역 사거리 - 성북동 방향 1km 직진 - 선담단지 우회전 100m 직진
+                      p &NonBreakingSpace;
+                      p
+                      h4
+                        |주차공간이 없으므로 가급적 대중교통을 이용 바랍니다
+            include about_side
+          include footer
+    include scripts
