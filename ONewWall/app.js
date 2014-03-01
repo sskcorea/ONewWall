@@ -46,7 +46,6 @@ app.all('*', function(req, res, next) {
 	next();
 });
 
-
 //first page
 app.get('/', function(req, res, next) {
 	var root_path = path.join(__dirname, '/public/data/main');
@@ -172,7 +171,7 @@ app.get('/artworks/:id',	function(req, res, next) {
 	});
 });
 
-//artworks
+// artworks
 app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 	var filename = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks', req.params.artwork).replace('.jpg','.txt');
 	var dirname = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks');
@@ -228,22 +227,29 @@ app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 	});
 });
 
-//about
+// exhibition
+app.get('/exhibitions',	function(req, res, next) {
+	
+	
+	res.render('exhibitions');
+});
+
+// about
 app.get('/about',	function(req, res, next) {
 	res.render('about');
 });
 
-//contacts
+// contacts
 app.get('/contacts',	function(req, res, next) {
 	res.render('contacts');
 });
 
-//direction
+// direction
 app.get('/location',	function(req, res, next) {
 	res.render('location');
 });
 
-//members
+// members
 app.get('/members',	function(req, res, next) {
 	res.render('members');
 });
