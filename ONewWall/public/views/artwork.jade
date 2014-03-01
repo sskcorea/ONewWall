@@ -17,7 +17,7 @@ html(lang='en')
                 .span10
                   div
                     .dzwplb-wrapper
-                      img.dzwplb-active.dzwplb-image(src='/data/artists/#{artist.name}/artworks/#{artwork.name}')
+                      img(src='/data/artists/#{artist.name}/artworks/#{artwork.name}')
                     .dz-image-content
                       each line in desc
                         p
@@ -25,7 +25,7 @@ html(lang='en')
                 .span2
                   .pagination.pagination-centered
                     ul.non_paged_pagination
-                      if artwork.prev > 0
+                      if artwork.prev >= 0
                         li
                           a.pagination-prev.prev-arrow(href='/artworks/#{artist.name}/#{artwork.artworks[artwork.prev].name}')
                             img(src='/themes/arrow_left.png')
@@ -33,7 +33,7 @@ html(lang='en')
                         li.disabled
                           span.prev-arrow
                             img(src='/themes/arrow_left_disabled.png')
-                      if artwork.next > 0
+                      if artwork.next >= 0
                         li
                           a.pagination-next.next-arrow(href='/artworks/#{artist.name}/#{artwork.artworks[artwork.next].name}')
                             img(src='/themes/arrow_right.png')

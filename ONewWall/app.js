@@ -191,30 +191,27 @@ app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 		}
 	}
 	
-	console.log(dirname);
 	if(fs.existsSync(dirname)){
-		console.log(dirname);
 		files = fs.readdirSync(dirname);
-		console.log(files);
+
+		// folder files
 		for(ii in files){
 			if (path.extname(files[ii]) === '.jpg') {
-				if(files[ii] === req.params.artwork){
-					current = ii;
-					if(ii>0)
-						prev = Number(ii)-1;
-					if(files.length > Number(ii)+1)
-						next = Number(ii)+1;
-				}
-				console.log(files[ii]);
 				artworks.push({name:files[ii]});
 			}
 		}
+
+		// image files
+		for(iii in artworks){
+			if(artworks[iii].name === req.params.artwork){
+				if(iii>0)
+					prev = Number(iii-1);
+				if(artworks.length > Number(iii)+1)
+					next = Number(iii)+1;
+			}
+			
+		}
 	}
-	
-	console.log(artworks);
-	console.log(current);
-	console.log(prev);
-	console.log(next);
 	
 	res.render('artwork', {
 		artist:{
