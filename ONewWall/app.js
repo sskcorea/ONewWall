@@ -227,3 +227,13 @@ app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 		desc:desc
 	});
 });
+
+//about
+app.get('/about',	function(req, res, next) {
+	res.render('about');
+});
+
+//about
+app.get('/contacts',	function(req, res, next) {
+	res.render('contacts');
+});
