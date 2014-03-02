@@ -227,11 +227,54 @@ app.get('/artworks/:artist/:artwork',	function(req, res, next) {
 	});
 });
 
-// exhibition
-app.get('/exhibitions',	function(req, res, next) {
+// exhibitions
+app.get('/exhibitions/current',	function(req, res, next) {
+	var root_path = path.join(__dirname, '/public/data/exhibitions/current');
+	var file_path;
 	
+	var files;
+	var title, image, location, date;
+	var desc=[];
 	
-	res.render('exhibitions');
+	if(fs.existsSync(root_path)){
+		
+		files = fs.readdirSync(root_path);
+		
+		for (i in files) {
+			file_path = path.join(root_path, files[i]);
+			console.log(files[i]);
+			if(files[i] === 'DESC.txt'){
+				var line = fs.readFileSync(file_path).toString().split("\n");
+				for (j in line) {
+					if(j==0)
+						title = line[j];
+					else if(j==1)
+						date = line[j];
+				}
+			}else if(files[i] === 'TEXT.txt'){
+				var text = fs.readFileSync(file_path).toString().split("\n");
+				
+				for(k in text){
+					desc.push({'text':text[k]});
+				}
+				console.log(desc);
+			}else if (path.extname(files[i]) === '.jpg') {
+				image = '/data/exhibitions/current/' + files[i];
+			}
+		}
+	}
+	res.render('exhibitions_current', {
+		'title':title,
+		'image':image,
+		'date':date,
+		'desc':desc
+	});
+});
+
+//exhibition
+app.get('/exhibition/:name',	function(req, res, next) {
+	
+	res.render('exhibition');
 });
 
 // about

@@ -1,0 +1,51 @@
+doctype html
+html(lang='en')
+  head
+    title #{title} &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span9
+              h1.page-title.screen-adjusting-text #{title}
+              h2.date-subtitle #{date}
+              .row-fluid.content-container.dz_image_with_content
+                .span10
+                  div
+                    .non-dzwplb-wrapper
+                      img(src='#{image}', alt='')
+                      .dzwplb-captions
+                        .dzwplb-caption.dzwplb-caption-active(data-captionid='62839')
+                          small
+                    .dz-image-content
+                      each line in desc
+                        p
+                          if(line.text ==='\r')
+                            br
+                          else
+                            | #{line.text}
+                .span2
+                  .pagination.pagination-centered
+            .span3
+              .sidebar
+                ul.nav.nav-pills.nav-stacked
+                  li
+                    a(href='http://www.davidzwirner.com/exhibitions-2/current-exhibitions/', target='_self') Current Exhibitions
+                  li
+                    a(href='http://www.davidzwirner.com/exhibitions-2/upcoming-exhibitions/', target='_self') Upcoming Exhibitions
+                  li
+                    a(href='http://www.davidzwirner.com/exhibitions-2/past-exhibitions/', target='_self') Past Exhibitions
+                  li
+                    a(href='http://www.davidzwirner.com/exhibitions-2/global-exhibitions/', target='_self') Global Exhibitions
+                  li &NonBreakingSpace;
+                  li
+                    a(href='http://www.davidzwirner.com/exhibition/doug-wheeler-2/', target='_self') Exhibition Home
+                  li
+                    a(href='http://www.davidzwirner.com/wp-content/uploads/2014/01/DW.Flyer_FINAL.pdf', target='_blank') Press Release
+                  li
+                    a(href='http://www.davidzwirner.com/artists/doug-wheeler/', target='_self') Artist&apos;s Page
+          include footer
+    include scripts
