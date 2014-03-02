@@ -46,8 +46,12 @@ app.all('*', function(req, res, next) {
 	next();
 });
 
-//first page
 app.get('/', function(req, res, next) {
+	res.redirect('http://onewwall.wordpress.com');
+});
+
+//first page
+app.get('/new', function(req, res, next) {
 	var root_path = path.join(__dirname, '/public/data/main');
 	var file_path;
 	
@@ -131,7 +135,7 @@ app.get('/artist/:id',	function(req, res, next) {
 				desc.push({'text': line[j]});
 			}
 		}else if (path.extname(files[i]) === '.jpg') {
-			image = path.join('/data/main/', files[i]);
+			image = path.join('/data/artists/',req.params.id, files[i]);
 		}
 	}
 	res.render('artist', {
@@ -269,6 +273,30 @@ app.get('/exhibitions/current',	function(req, res, next) {
 		'date':date,
 		'desc':desc
 	});
+});
+
+//exhibitions
+app.get('/exhibitions/upcoming',	function(req, res, next) {
+
+	res.render('exhibitions_upcoming');
+});
+
+//exhibitions
+app.get('/exhibitions/past',	function(req, res, next) {
+	
+	res.render('exhibitions_past');
+});
+
+//exhibitions
+app.get('/projects',	function(req, res, next) {
+	
+	res.send("<h1>under construction!</h1>");
+});
+
+//exhibitions
+app.get('/publications',	function(req, res, next) {
+	
+	res.send("<h1>under construction!</h1>");
 });
 
 //exhibition
