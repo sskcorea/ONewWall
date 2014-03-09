@@ -318,7 +318,7 @@ app.get('/exhibition/past/:year/:title', function(req, res, next) {
 
 		for ( var i in files) {
 			file_path = path.join(root_path, files[i]);
-			console.log(files[i]);
+			
 			if (files[i] === 'DESC.txt') {
 				var line = fs.readFileSync(file_path).toString().split("\n");
 				for ( var j in line) {
@@ -331,14 +331,14 @@ app.get('/exhibition/past/:year/:title', function(req, res, next) {
 			} else if (files[i] === 'TEXT.txt') {
 				var text = fs.readFileSync(file_path).toString().split("\n");
 
-				for ( var k in text) {
+				for (var k in text) {
 					desc.push({
 						'text' : text[k]
 					});
 				}
 				console.log(desc);
 			} else if (path.extname(files[i]) === '.jpg') {
-				image = '/data/exhibitions/current/' + files[i];
+				image = '/data/exhibitions/past/'+req.params.year + '/' + req.params.title + '/' + files[i];
 			}
 		}
 	}
