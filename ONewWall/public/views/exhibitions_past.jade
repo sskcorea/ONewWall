@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Past Exhibitions &raquo; David Zwirner
+    title Past Exhibitions &raquo; O'NewWall
     include header
   body
     .container
@@ -11,39 +11,27 @@ html(lang='en')
           .row-fluid.main-content
             .span9.focus-adjust
               h1.page-title.screen-adjusting-text
-                a(href='http://www.davidzwirner.com/exhibitions-2/past-exhibitions/') Past Exhibitions
+                a(href='/exhibitions/past') Past Exhibitions
               .page-subtitle &NonBreakingSpace;
               .row-fluid.content-container.exhibition-list
                 .span10
-                  form(action='http://www.davidzwirner.com/exhibitions-2/past-exhibitions/', method='get')
+                  form(action='/exhibitions/past/year', method='get')
                     select(name='yr', onchange='return this.form.submit()')
                       option(disabled='disabled', selected='selected') Select a year
-                      option(value='2014') 2014
                       option(value='2013') 2013
                       option(value='2012') 2012
                       option(value='2011') 2011
-                  ul.unstyled.grouped-list
-                    li.grouped-item.rounded-corners
-                      .media
-                        a.pull-left.grouped-image.grouped-image-type-exhibition(href='http://www.davidzwirner.com/exhibition/luc-tuymans-ny-2013/', target='_self')
-                          img.media-object(src='http://www.davidzwirner.com/wp-content/uploads/2012/07/LTDZ_show_2013-175x116.jpg')
-                        .media-body
+                .span11
+                  .row-fluid
+                    each exhibition in exhibitions
+                      .span6.two-col-item
+                        a(href='/exhibition/past/#{exhibition.year}/#{exhibition.title}', target='_self')
+                          img.media-object(src='#{exhibition.image}')
+                        .two-col-caption
                           dl
-                            dt
-                              a(href='http://www.davidzwirner.com/exhibition/luc-tuymans-ny-2013/', target='_self') Luc Tuymans
-                            dd The Summer is Over
-                            dd 519 West 19th Street&comma; New York
-                            dd January 10 - February 9&comma; 2013
-                    hr
-                .span2
-                  .pagination.pagination-centered
-                    ul.non_paged_pagination
-                      li
-                        a.pagination-prev.prev-arrow(href='http://www.davidzwirner.com/exhibitions-2/past-exhibitions/page/3/')
-                          img(src='http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/arrow_left.png')
-                      li
-                        a.pagination-next.next-arrow(href='http://www.davidzwirner.com/exhibitions-2/past-exhibitions/page/5/')
-                          img(src='http://www.davidzwirner.com/wp-content/themes/DZW3/styles/images/arrow_right.png')
+                            dt.text-large
+                              #{exhibition.title}
+                            dd #{exhibition.date}
               .row-fluid
                 .span10
                   .pagination.pagination-centered

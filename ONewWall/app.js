@@ -46,44 +46,44 @@ app.all('*', function(req, res, next) {
 	next();
 });
 
-app.get('/', function(req, res, next) {
+app.get('/old', function(req, res, next) {
 	res.redirect('http://onewwall.wordpress.com');
 });
 
-//first page
-app.get('/new', function(req, res, next) {
+// first page
+app.get('/', function(req, res, next) {
 	var root_path = path.join(__dirname, '/public/data/main');
 	var file_path;
-	
+
 	var files = fs.readdirSync(root_path);
 	var title, artist_name, img_src;
-	var memo=[];
-	
-	for (i in files) {
+	var memo = [];
+
+	for ( var i in files) {
 		file_path = path.join(root_path, files[i]);
-		if(files[i] === 'DESC.txt'){
+		if (files[i] === 'DESC.txt') {
 			var line = fs.readFileSync(file_path).toString().split("\n");
-			
-			for (j in line) {
-				if(j==0) {
+
+			for ( var j in line) {
+				if (j == 0) {
 					title = line[j];
-				}
-				else if(j==1){
+				} else if (j == 1) {
 					artist_name = line[j];
-				}
-				else {
-					memo.push({'text': line[j]});
+				} else {
+					memo.push({
+						'text' : line[j]
+					});
 				}
 			}
-		}else if (path.extname(files[i]) === '.jpg') {
+		} else if (path.extname(files[i]) === '.jpg') {
 			img_src = '/data/main/' + files[i];
 		}
 	}
 	res.render('home', {
-		'artist_name': artist_name, 
-		'title': title,
-		'memo': memo,
-		'img_src': img_src
+		'artist_name' : artist_name,
+		'title' : title,
+		'memo' : memo,
+		'img_src' : img_src
 	});
 });
 
@@ -91,236 +91,391 @@ app.get('/new', function(req, res, next) {
 app.get('/artists',	function(req, res, next) {
 	var root = path.join(__dirname, '/public/data/artists');
 	var files = fs.readdirSync(root);
-	var artists=[];
-	var html='';
-	
-	for (i in files) {
-		if (fs.statSync(path.join(root, files[i])).isDirectory()) {
+	var artists = [];
+	var html = '';
+
+	for ( var i in files) {
+		if (fs.statSync(path.join(root, files[i]))
+				.isDirectory()) {
 			artists.push({
-				name: files[i],
+				name : files[i],
 			});
 		}
 	}
-	for(ii in artists){
-		if(ii == 0){
+	for ( var ii in artists) {
+		if (ii == 0) {
 			html += '<div class="span3"><ul class="nav nav-pills nav-stacked">';
-			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '">' + artists[ii].name + '</a>';
-		} else if(ii % 9 == 0){
+			html += '<li class="first-child"><a href="/artist/'
+					+ artists[ii].name + '">'
+					+ artists[ii].name + '</a>';
+		} else if (ii % 9 == 0) {
 			html += '</div><div class="span3"><ul class="nav nav-pills nav-stacked">';
-			html += '<li class="first-child"><a href="/artist/' + artists[ii].name + '">' + artists[ii].name + '</a>';
-		}else{
-			html += '<li><a href="/artist/' + artists[ii].name + '">' + artists[ii].name + '</a>';
+			html += '<li class="first-child"><a href="/artist/'
+					+ artists[ii].name + '">'
+					+ artists[ii].name + '</a>';
+		} else {
+			html += '<li><a href="/artist/' + artists[ii].name
+					+ '">' + artists[ii].name + '</a>';
 		}
 	}
 	html += '</div>';
 	console.log(html);
 	res.render('artists', {
-		'artists': artists,
-		'html_string':html
+		'artists' : artists,
+		'html_string' : html
 	});
 });
 
-//artist page
-app.get('/artist/:id',	function(req, res, next) {
+// artist page
+app.get('/artist/:id', function(req, res, next) {
 	var root = path.join(__dirname, '/public/data/artists/', req.params.id);
 	var files = fs.readdirSync(root);
-	var image='';
-	var desc=[];
-	
-	for(i in files){
+	var image = '';
+	var desc = [];
+
+	for ( var i in files) {
 		if (files[i] === "DESC.txt") {
-			var line = fs.readFileSync(path.join(root, files[i])).toString().split("\n");
-			
-			for (j in line) {
-				desc.push({'text': line[j]});
+			var line = fs.readFileSync(path.join(root, files[i])).toString()
+					.split("\n");
+
+			for ( var j in line) {
+				desc.push({
+					'text' : line[j]
+				});
 			}
-		}else if (path.extname(files[i]) === '.jpg') {
-			image = path.join('/data/artists/',req.params.id, files[i]);
+		} else if (path.extname(files[i]) === '.jpg') {
+			image = path.join('/data/artists/', req.params.id, files[i]);
 		}
 	}
 	res.render('artist', {
-		'name': req.params.id,
-		//'birthday': '1979',
-		'image': image,
-		'desc':desc
+		'name' : req.params.id,
+		// 'birthday': '1979',
+		'image' : image,
+		'desc' : desc
 	});
 });
 
 // artworks
-app.get('/artworks/:id',	function(req, res, next) {
-	var root = path.join(__dirname, '/public/data/artists/', req.params.id, 'artworks');
+app.get('/artworks/:id', function(req, res, next) {
+	var root = path.join(__dirname, '/public/data/artists/', req.params.id,
+			'artworks');
 	var files;
-	var image_path='';
-	var artworks=[];
-	
-	if(fs.existsSync(root)){
-		 files = fs.readdirSync(root);
-		 for(i in files){
+	var image_path = '';
+	var artworks = [];
+
+	if (fs.existsSync(root)) {
+		files = fs.readdirSync(root);
+		for ( var i in files) {
 			if (path.extname(files[i]) === ".jpg") {
-				image_path = '/data/artists/' + req.params.id + '/artworks/'+ files[i];
+				image_path = '/data/artists/' + req.params.id + '/artworks/'
+						+ files[i];
 				artworks.push({
-					image: image_path,
-					name:files[i],
-					title:files[i].replace(".jpg","")
+					image : image_path,
+					name : files[i],
+					title : files[i].replace(".jpg", "")
 				});
 			}
 		}
 	}
-	
-	res.render('artworks',{
-		'artist': {
-			name: req.params.id
+
+	res.render('artworks', {
+		'artist' : {
+			name : req.params.id
 		},
-		'artworks': artworks
+		'artworks' : artworks
 	});
 });
 
 // artworks
-app.get('/artworks/:artist/:artwork',	function(req, res, next) {
-	var filename = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks', req.params.artwork).replace('.jpg','.txt');
-	var dirname = path.join(__dirname, '/public/data/artists/', req.params.artist, 'artworks');
+app.get('/artworks/:artist/:artwork', function(req, res, next) {
+	var filename = path.join(__dirname, '/public/data/artists/',
+			req.params.artist, 'artworks', req.params.artwork).replace('.jpg',
+			'.txt');
+	var dirname = path.join(__dirname, '/public/data/artists/',
+			req.params.artist, 'artworks');
 	var lines;
 	var files;
-	var desc=[];
-	var artworks=[];
-	var current=-1;
-	var prev=-1;
-	var next=-1;
-	
-	if(fs.existsSync(filename)){
+	var desc = [];
+	var artworks = [];
+	var current = -1;
+	var prev = -1;
+	var nxt = -1;
+
+	if (fs.existsSync(filename)) {
 		lines = fs.readFileSync(filename).toString().split("\n");
-		for(i in lines){
-			desc.push({text:lines[i]});
+		for ( var i in lines) {
+			desc.push({
+				text : lines[i]
+			});
 		}
 	}
-	
-	if(fs.existsSync(dirname)){
+
+	if (fs.existsSync(dirname)) {
 		files = fs.readdirSync(dirname);
 
 		// folder files
-		for(ii in files){
+		for ( var ii in files) {
 			if (path.extname(files[ii]) === '.jpg') {
-				artworks.push({name:files[ii]});
+				artworks.push({
+					name : files[ii]
+				});
 			}
 		}
 
 		// image files
-		for(iii in artworks){
-			if(artworks[iii].name === req.params.artwork){
-				if(iii>0)
-					prev = Number(iii-1);
-				if(artworks.length > Number(iii)+1)
-					next = Number(iii)+1;
+		for ( var iii in artworks) {
+			if (artworks[iii].name === req.params.artwork) {
+				if (iii > 0) {
+					prev = Number(iii - 1);
+				}
+
+				if (artworks.length > Number(iii) + 1) {
+					nxt = Number(iii) + 1;
+				}
 			}
-			
+
 		}
 	}
-	
+
 	res.render('artwork', {
-		artist:{
-			name: req.params.artist
+		artist : {
+			name : req.params.artist
 		},
-		artwork:{
-			name: req.params.artwork,
-			artworks:artworks, 
-			current:current,
-			prev:prev,
-			next:next
+		artwork : {
+			'name' : req.params.artwork,
+			'artworks' : artworks,
+			'current' : current,
+			'prev' : prev,
+			'next' : nxt
 		},
-		desc:desc
+		desc : desc
 	});
 });
 
 // exhibitions
-app.get('/exhibitions/current',	function(req, res, next) {
+app.get('/exhibitions/current', function(req, res, next) {
 	var root_path = path.join(__dirname, '/public/data/exhibitions/current');
 	var file_path;
-	
+
 	var files;
 	var title, image, location, date;
-	var desc=[];
-	
-	if(fs.existsSync(root_path)){
-		
+	var desc = [];
+
+	if (fs.existsSync(root_path)) {
+
 		files = fs.readdirSync(root_path);
-		
-		for (i in files) {
+
+		for ( var i in files) {
 			file_path = path.join(root_path, files[i]);
 			console.log(files[i]);
-			if(files[i] === 'DESC.txt'){
+			if (files[i] === 'DESC.txt') {
 				var line = fs.readFileSync(file_path).toString().split("\n");
-				for (j in line) {
-					if(j==0)
+				for ( var j in line) {
+					if (j == 0) {
 						title = line[j];
-					else if(j==1)
+					} else if (j == 1) {
 						date = line[j];
+					}
 				}
-			}else if(files[i] === 'TEXT.txt'){
+			} else if (files[i] === 'TEXT.txt') {
 				var text = fs.readFileSync(file_path).toString().split("\n");
-				
-				for(k in text){
-					desc.push({'text':text[k]});
+
+				for ( var k in text) {
+					desc.push({
+						'text' : text[k]
+					});
 				}
 				console.log(desc);
-			}else if (path.extname(files[i]) === '.jpg') {
+			} else if (path.extname(files[i]) === '.jpg') {
 				image = '/data/exhibitions/current/' + files[i];
 			}
 		}
 	}
 	res.render('exhibitions_current', {
-		'title':title,
-		'image':image,
-		'date':date,
-		'desc':desc
+		'title' : title,
+		'image' : image,
+		'date' : date,
+		'desc' : desc
 	});
 });
 
-//exhibitions
-app.get('/exhibitions/upcoming',	function(req, res, next) {
+// exhibition
+app.get('/exhibition/past/:year/:title', function(req, res, next) {
+	var root_path = path.join(__dirname, '/public/data/exhibitions/past/',
+			req.params.year, req.params.title);
+	var file_path;
+
+	var files;
+	var title = 'unknown';
+	var image, location;
+	var date = new Date().getFullYear();
+	var desc = [];
+
+	if (fs.existsSync(root_path)) {
+
+		files = fs.readdirSync(root_path);
+
+		for ( var i in files) {
+			file_path = path.join(root_path, files[i]);
+			console.log(files[i]);
+			if (files[i] === 'DESC.txt') {
+				var line = fs.readFileSync(file_path).toString().split("\n");
+				for ( var j in line) {
+					if (j == 0) {
+						title = line[j];
+					} else if (j == 1) {
+						date = line[j];
+					}
+				}
+			} else if (files[i] === 'TEXT.txt') {
+				var text = fs.readFileSync(file_path).toString().split("\n");
+
+				for ( var k in text) {
+					desc.push({
+						'text' : text[k]
+					});
+				}
+				console.log(desc);
+			} else if (path.extname(files[i]) === '.jpg') {
+				image = '/data/exhibitions/current/' + files[i];
+			}
+		}
+	}
+	res.render('exhibition', {
+		'title' : title,
+		'image' : image,
+		'date' : date,
+		'desc' : desc
+	});
+});
+
+// exhibitions
+app.get('/exhibitions/upcoming', function(req, res, next) {
 
 	res.render('exhibitions_upcoming');
 });
 
-//exhibitions
-app.get('/exhibitions/past',	function(req, res, next) {
-	
-	res.render('exhibitions_past');
+// exhibitions
+app.get('/exhibitions/past/:year', function(req, res, next) {
+	var root = path.join(__dirname,
+			'/public/data/exhibitions/past', req.params.year);
+	console.log('root :' + root);
+
+	var title = 'unknown';
+	var date = new Date().getFullYear();
+	var exhibition;
+	var lines;
+	var dirs;
+	var files;
+	var desc = [];
+	var exhibitions = [];
+	var current = -1;
+	var prev = -1;
+	var nxt = -1;
+
+	if (fs.existsSync(root)) {
+		dirs = fs.readdirSync(root);
+		for ( var i in dirs) {
+			exhibitions.push({
+				name : dirs[i]
+			});
+			files = fs.readdirSync(path.join(root, dirs[i]));
+
+			for ( var ii in files) {
+				if (files[ii] === 'DESC.txt') {
+					lines = fs
+							.readFileSync(
+									path.join(root, dirs[i],
+											files[ii]))
+							.toString().split("\n");
+					for ( var j in lines) {
+						if (j === 0) {
+							title = lines[j];
+						} else if (j === 1) {
+							date = lines[j];
+						}
+					}
+				}
+			}
+		}
+	}
+	console.log('exhibitions :' + exhibitions);
+	console.log('title :' + title);
+	console.log('date :' + date);
+
+	// // image files
+	// for(var iii in exhibitions){
+	// if(exhibitions[iii].name === req.params.artwork){
+	// if(iii>0){
+	// prev = Number(iii-1);
+	// }
+	//
+	// if(artworks.length > Number(iii)+1){
+	// nxt = Number(iii)+1;
+	// }
+	// }
+	//		
+	// }
+
+	res.render('exhibitions_past',{
+		'exhibitions' : [{
+			title : '동시 상영',
+			image : '/data/exhibitions/past/2013/동시 상영/eb85b8ec8381eca480_feveracrylic-on-canvas50-x50cm-2012.jpg',
+			date : '2013.12.13(Fri) – 12.17(Tue)',
+			year: '2013'
+				},{
+			title : '촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”',
+			image : '/data/exhibitions/past/2013/촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”/ec82aceca784-2.jpg',
+			date : '2013.12.13(Fri) – 12.17(Tue)',
+			year: '2013'
+				}],
+		'prev' : -1,
+		'next' : -1
+	});
+});
+
+app.get('/exhibitions/past/year', function(req, res, next) {
+	console.log(req.query.yr);
+	var date = new Date();
+	var this_year = date.getFullYear();
+	console.log(this_year);
+	res.redirect('/exhibitions/past/' + req.query.yr);
 });
 
 //exhibitions
-app.get('/projects',	function(req, res, next) {
-	
+app.get('/projects', function(req, res, next) {
+
 	res.send("<h1>under construction!</h1>");
 });
 
 //exhibitions
-app.get('/publications',	function(req, res, next) {
-	
+app.get('/publications', function(req, res, next) {
+
 	res.send("<h1>under construction!</h1>");
 });
 
 //exhibition
-app.get('/exhibition/:name',	function(req, res, next) {
-	
+app.get('/exhibition/:name', function(req, res, next) {
+
 	res.render('exhibition');
 });
 
 // about
-app.get('/about',	function(req, res, next) {
+app.get('/about', function(req, res, next) {
 	res.render('about');
 });
 
 // contacts
-app.get('/contacts',	function(req, res, next) {
+app.get('/contacts', function(req, res, next) {
 	res.render('contacts');
 });
 
 // direction
-app.get('/location',	function(req, res, next) {
+app.get('/location', function(req, res, next) {
 	res.render('location');
 });
 
 // members
-app.get('/members',	function(req, res, next) {
+app.get('/members', function(req, res, next) {
 	res.render('members');
 });
