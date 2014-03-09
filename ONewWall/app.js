@@ -15,6 +15,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+
 // This tells express to route ALL requests through this middleware
 // This middleware ends up being a "catch all" error handler
 app.use(function(err, req, res, next) {
@@ -350,15 +351,8 @@ app.get('/exhibition/past/:year/:title', function(req, res, next) {
 });
 
 // exhibitions
-app.get('/exhibitions/upcoming', function(req, res, next) {
-
-	res.render('exhibitions_upcoming');
-});
-
-// exhibitions
 app.get('/exhibitions/past/:year', function(req, res, next) {
-	var root = path.join(__dirname,
-			'/public/data/exhibitions/past', req.params.year);
+	var root = path.join(__dirname, '/public/data/exhibitions/past', req.params.year);
 	console.log('root :' + root);
 
 	var title = 'unknown';
@@ -428,12 +422,25 @@ app.get('/exhibitions/past/:year', function(req, res, next) {
 			image : '/data/exhibitions/past/2013/촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”/ec82aceca784-2.jpg',
 			date : '2013.12.13(Fri) – 12.17(Tue)',
 			year: '2013'
-				}],
+				},
+			{
+				title : '촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”',
+				image : '/data/exhibitions/past/2013/촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”/ec82aceca784-2.jpg',
+				date : '2013.12.13(Fri) – 12.17(Tue)',
+				year: '2013'
+					}],
 		'prev' : -1,
 		'next' : -1
 	});
 });
 
+//exhibitions
+app.get('/exhibitions/upcoming', function(req, res, next) {
+
+	res.render('exhibitions_upcoming');
+});
+
+// select form
 app.get('/exhibitions/past/year', function(req, res, next) {
 	console.log(req.query.yr);
 	var date = new Date();

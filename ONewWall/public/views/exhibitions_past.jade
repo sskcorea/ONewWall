@@ -21,17 +21,19 @@ html(lang='en')
                       option(value='2013') 2013
                       option(value='2012') 2012
                       option(value='2011') 2011
-                .span11
-                  .row-fluid
-                    each exhibition in exhibitions
-                      .span6.two-col-item
-                        a(href='/exhibition/past/#{exhibition.year}/#{exhibition.title}', target='_self')
-                          img.media-object(src='#{exhibition.image}')
-                        .two-col-caption
-                          dl
-                            dt.text-large
-                              #{exhibition.title}
-                            dd #{exhibition.date}
+                each value, index in exhibitions
+                  -if(index%2 === 0){  
+                    .span11
+                      .row-fluid
+                        each exhibition in exhibitions.slice(index, index+2)
+                          .span6.two-col-item
+                            a(href='/exhibition/past/#{exhibition.year}/#{exhibition.title}', target='_self')
+                              img.media-object(src='#{exhibition.image}')
+                            .two-col-caption
+                              dl
+                                dt.text-large #{exhibition.title}
+                                dd #{exhibition.date}
+                  -}
               .row-fluid
                 .span10
                   .pagination.pagination-centered
