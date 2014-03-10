@@ -15,12 +15,14 @@ html(lang='en')
               .page-subtitle &NonBreakingSpace;
               .row-fluid.content-container.exhibition-list
                 .span10
-                  form(action='/exhibitions/past/year', method='get')
+                  form(action='/exhibitions/year', method='get')
                     select(name='yr', onchange='return this.form.submit()')
-                      option(disabled='disabled', selected='selected') Select a year
-                      option(value='2013') 2013
-                      option(value='2012') 2012
-                      option(value='2011') 2011
+                      - var years=['2014', '2013','2012', '2011'];
+                      each y in years
+                        if (y === year) 
+                          option(value=y, selected='selected') #{y}
+                        else
+                          option(value=y) #{y}
                 each value, index in exhibitions
                   -if(index%2 === 0){  
                     .span11

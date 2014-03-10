@@ -61,23 +61,27 @@ app.get('/', function(req, res, next) {
 	var memo = [];
 
 	for ( var i in files) {
-		file_path = path.join(root_path, files[i]);
-		if (files[i] === 'DESC.txt') {
-			var line = fs.readFileSync(file_path).toString().split("\n");
+		if(files.hasOwnProperty(i)){
+			file_path = path.join(root_path, files[i]);
+			if (files[i] === 'DESC.txt') {
+				var line = fs.readFileSync(file_path).toString().split("\n");
 
-			for ( var j in line) {
-				if (j == 0) {
-					title = line[j];
-				} else if (j == 1) {
-					artist_name = line[j];
-				} else {
-					memo.push({
-						'text' : line[j]
-					});
+				for (var j in line) {
+					if(line.hasOwnProperty(j)){
+						if (j == 0) {
+							title = line[j];
+						} else if (j == 1) {
+							artist_name = line[j];
+						} else {
+							memo.push({
+								'text' : line[j]
+							});
+						}
+					}
 				}
+			} else if (path.extname(files[i]) === '.jpg') {
+				img_src = '/data/main/' + files[i];
 			}
-		} else if (path.extname(files[i]) === '.jpg') {
-			img_src = '/data/main/' + files[i];
 		}
 	}
 	res.render('home', {
@@ -302,6 +306,8 @@ app.get('/exhibitions/current', function(req, res, next) {
 
 // exhibition
 app.get('/exhibition/past/:year/:title', function(req, res, next) {
+	console.log('/exhibition/past/:year/:title' + req.query.yr);
+	
 	var root_path = path.join(__dirname, '/public/data/exhibitions/past/',
 			req.params.year, req.params.title);
 	var file_path;
@@ -352,85 +358,56 @@ app.get('/exhibition/past/:year/:title', function(req, res, next) {
 
 // exhibitions
 app.get('/exhibitions/past/:year', function(req, res, next) {
-	var root = path.join(__dirname, '/public/data/exhibitions/past', req.params.year);
-	console.log('root :' + root);
-
+	console.log('/exhibitions/past/:year');
+	
+	var year = req.params.year;
+	var root = path.join(__dirname, '/public/data/exhibitions/past', year);
 	var title = 'unknown';
 	var date = new Date().getFullYear();
-	var exhibition;
+	var image;
 	var lines;
 	var dirs;
 	var files;
-	var desc = [];
 	var exhibitions = [];
-	var current = -1;
-	var prev = -1;
-	var nxt = -1;
 
+	console.log('root :' + root);
+	
 	if (fs.existsSync(root)) {
 		dirs = fs.readdirSync(root);
-		for ( var i in dirs) {
-			exhibitions.push({
-				name : dirs[i]
-			});
-			files = fs.readdirSync(path.join(root, dirs[i]));
+		for (var i in dirs) {
+			if(dirs.hasOwnProperty(i)){
+				files = fs.readdirSync(path.join(root, dirs[i]));
 
-			for ( var ii in files) {
-				if (files[ii] === 'DESC.txt') {
-					lines = fs
-							.readFileSync(
-									path.join(root, dirs[i],
-											files[ii]))
-							.toString().split("\n");
-					for ( var j in lines) {
-						if (j === 0) {
-							title = lines[j];
-						} else if (j === 1) {
-							date = lines[j];
+				for (var ii in files) {
+					
+					if (files[ii] === 'DESC.txt') {
+						lines = fs.readFileSync(path.join(root, dirs[i], files[ii])).toString().split("\n");
+						for (var j in lines) {
+							if (j === 0) {
+								title = lines[j];
+							} else if (j === 1) {
+								date = lines[j];
+							}
 						}
+					} else if (path.extname(files[ii]) === '.jpg') {
+						image = '/data/exhibitions/past/'+ year + '/' + dirs[i] + '/' + files[ii];
 					}
+					
+					exhibitions.push({
+						'title':title,
+						'date':date,
+						'year':year,
+						'image':image
+					});
 				}
 			}
 		}
 	}
-	console.log('exhibitions :' + exhibitions);
-	console.log('title :' + title);
-	console.log('date :' + date);
-
-	// // image files
-	// for(var iii in exhibitions){
-	// if(exhibitions[iii].name === req.params.artwork){
-	// if(iii>0){
-	// prev = Number(iii-1);
-	// }
-	//
-	// if(artworks.length > Number(iii)+1){
-	// nxt = Number(iii)+1;
-	// }
-	// }
-	//		
-	// }
+//	console.log('exhibitions :' + exhibitions);
 
 	res.render('exhibitions_past',{
-		'exhibitions' : [{
-			title : '동시 상영',
-			image : '/data/exhibitions/past/2013/동시 상영/eb85b8ec8381eca480_feveracrylic-on-canvas50-x50cm-2012.jpg',
-			date : '2013.12.13(Fri) – 12.17(Tue)',
-			year: '2013'
-				},{
-			title : '촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”',
-			image : '/data/exhibitions/past/2013/촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”/ec82aceca784-2.jpg',
-			date : '2013.12.13(Fri) – 12.17(Tue)',
-			year: '2013'
-				},
-			{
-				title : '촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”',
-				image : '/data/exhibitions/past/2013/촉4, 축개인전 Be Touched·Ⅳ – “Congratulation to your opening!”/ec82aceca784-2.jpg',
-				date : '2013.12.13(Fri) – 12.17(Tue)',
-				year: '2013'
-					}],
-		'prev' : -1,
-		'next' : -1
+		'exhibitions' : exhibitions,
+		'year':year
 	});
 });
 
@@ -441,11 +418,8 @@ app.get('/exhibitions/upcoming', function(req, res, next) {
 });
 
 // select form
-app.get('/exhibitions/past/year', function(req, res, next) {
-	console.log(req.query.yr);
-	var date = new Date();
-	var this_year = date.getFullYear();
-	console.log(this_year);
+app.get('/exhibitions/year', function(req, res, next) {
+	console.log('/exhibitions/year/');
 	res.redirect('/exhibitions/past/' + req.query.yr);
 });
 
