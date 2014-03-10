@@ -12,17 +12,19 @@ html(lang='en')
             .span9.focus-adjust
               h1.page-title.screen-adjusting-text
                 a(href='/exhibitions/past') Past Exhibitions
+                form(action='/exhibitions/year', method='get')
+                  select(name='yr', onchange='return this.form.submit()')
+                    - var years=['2014', '2013','2012', '2011'];
+                    each y in years
+                      if (y === year) 
+                        option(value=y, selected='selected') #{y}
+                      else
+                        option(value=y) #{y}
+              //h2.page-subtitle.text-normal
+                //| O'NewWall
               .page-subtitle &NonBreakingSpace;
               .row-fluid.content-container.exhibition-list
-                .span10
-                  form(action='/exhibitions/year', method='get')
-                    select(name='yr', onchange='return this.form.submit()')
-                      - var years=['2014', '2013','2012', '2011'];
-                      each y in years
-                        if (y === year) 
-                          option(value=y, selected='selected') #{y}
-                        else
-                          option(value=y) #{y}
+                
                 each value, index in exhibitions
                   -if(index%2 === 0){  
                     .span11
