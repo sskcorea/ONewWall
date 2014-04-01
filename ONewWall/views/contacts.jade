@@ -1,0 +1,32 @@
+doctype html
+html(lang='en')
+  head
+    title About &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span9
+              h1.page-title.screen-adjusting-text
+                a(href='/contacts/') Contacts
+              //h2.page-subtitle
+              .row-fluid.content-container.dz_full_content
+                h2
+                  | 서울특별시 성북구 성북동 52
+                h3
+                  | 52, SeongBukDong,SeongBukGu, Seoul, S.Korea
+                br
+                h3
+                  | Tel 070 4401 6741
+                h3
+                  | Fax 02 741 6741
+                h3
+                  | E-mail
+                  a(href='mailto:onewwall@onewwall.com', sl-processed='1') &nbsp; onewwall&commat;onewwall&period;com
+                br
+            include about_side
+          include footer
+    include scripts

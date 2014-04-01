@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  head
+    title Home &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span12
+              #dzCarousel.carousel.slide
+                .carousel-inner
+                  .item.active
+                    .carousel-image
+                      //a(href='/artist/#{artist_name}/')
+                      img(src='#{img_src}', style="max-width:800px; max-height:600px;")
+                    .carousel-caption
+                      h3 #{title}
+                        //a(href='/artist/#{artist_name}/') #{artist_name}
+                      each line in memo
+                        h4 #{line.text}
+          include footer
+    include scripts
+    

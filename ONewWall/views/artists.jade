@@ -1,0 +1,21 @@
+doctype html
+html(lang='en')
+  head
+    title Artists &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span12.dz-artist-all
+              h1.page-title.screen-adjusting-text
+                a(href='/artists/') Artists
+              .page-subtitle &NonBreakingSpace;
+              .row-fluid
+                .span12.content-container
+                  .row-fluid
+                    !{html_string}
+          include footer
+    include scripts

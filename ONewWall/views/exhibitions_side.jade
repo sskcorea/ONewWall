@@ -1,0 +1,12 @@
+.span3
+  .sidebar
+    ul.nav.nav-pills.nav-stacked
+      li
+        a(href='/exhibitions/current', target='_self') Current Exhibitions
+      //li
+        //a(href='/exhibitions/upcoming', target='_self') Upcoming Exhibitions
+        //a(href='#', target='_self') Upcoming Exhibitions
+      li
+        - var this_year = new Date().getFullYear();
+        a(href='/exhibitions/past/#{this_year}', target='_self') Past Exhibitions
+        //a(href='#', target='_self') Past Exhibitions
