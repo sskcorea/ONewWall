@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Past Exhibitions &raquo; O'NewWall
+    title Projects &raquo; O'NewWall
     include header
   body
     .container
@@ -10,11 +10,11 @@ html(lang='en')
           include menu
           .row-fluid.main-content
             .span9.focus-adjust
-              h1.page-title.screen-adjusting-text Past Exhibitions
+              h1.page-title.screen-adjusting-text Projects
               .row-fluid.content-container.exhibition-list
-                form(action='/exhibitions/year', method='get')
+                form(action='/projects/year', method='get')
                     select(name='yr', onchange='return this.form.submit()')
-                      - var years=['2014', '2013','2012', '2011'];
+                      - var years=['2014'];
                       each y in years
                         if (y === year) 
                           option(value=y, selected='selected') #{y}
@@ -25,13 +25,12 @@ html(lang='en')
                       .row-fluid
                         each exhibition in exhibitions.slice(index, index+2)
                           .span6.two-col-item
-                            a(href='/exhibition/past/#{exhibition.year}/#{exhibition.title}', target='_self')
+                            a(href='/projects/#{exhibition.year}/#{exhibition.title}', target='_self')
                               img.media-object(src='#{exhibition.image}')
                             .two-col-caption
                               dl
                                 dt.text-large #{exhibition.title}
                                 dd #{exhibition.date}
                   -}
-            include exhibitions_side
           include footer
     include scripts

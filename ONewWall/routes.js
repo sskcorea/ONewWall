@@ -364,6 +364,67 @@ exports.exhibitions_past=function(req, res, next) {
 	});
 }
 
+exports.projects=function(req, res, next) {
+	console.log('/projects');
+	
+	var year = '2014';
+	var root = path.join(__dirname, '/public/data/projects', year);
+	var title = 'unknown';
+	var date = new Date().getFullYear();
+	var image;
+	var lines;
+	var dirs;
+	var files;
+	var exhibitions = [];
+	var main_flag=false;
+	console.log('root :' + root);
+	
+	if (fs.existsSync(root)) {
+		dirs = fs.readdirSync(root);
+		for (var i in dirs) {
+			if(dirs.hasOwnProperty(i)){
+				console.log('dirs: ' +'[' +i +']' + dirs);
+				files = fs.readdirSync(path.join(root, dirs[i]));
+
+				for (var ii in files) {
+					console.log('files: ' + files[ii]);
+					if (files[ii] === 'DESC.txt') {
+						lines = fs.readFileSync(path.join(root, dirs[i], files[ii])).toString().split("\n");
+						console.log('lines: ' + lines);
+						for (var j in lines) {
+							if (j == 0) {
+								title = lines[j].trim();
+								console.log('title: ' + title);
+							} else if (j == 1) {
+								date = lines[j];
+							}
+						}
+					} else if (files[ii] === 'main.jpg') {
+						image = '/data/projects/'+ year + '/' + dirs[i] + '/' + files[ii];
+						main_flag=true;
+					} else if ((path.extname(files[ii]) === '.jpg'|| path.extname(files[ii]) === '.JPG') && main_flag === false) {
+						image = '/data/projects/'+ year + '/' + dirs[i] + '/' + files[ii];
+					}
+				}
+				console.log('files.length ' + files.length );
+				if(files.length > 0){
+					exhibitions.push({
+						'title':title,
+						'date':date,
+						'year':year,
+						'image':image
+					});					
+				}
+			}
+		}
+	}
+
+	res.render('projects',{
+		'exhibitions' : exhibitions,
+		'year':year
+	});
+}
+
 exports.about=function(req, res, next) {
 	res.render('about');
 }
