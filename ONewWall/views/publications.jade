@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Projects &raquo; O'NewWall
+    title Publications &raquo; O'NewWall
     include header
   body
     .container
@@ -10,14 +10,14 @@ html(lang='en')
           include menu
           .row-fluid.main-content
             .span9.focus-adjust
-              h1.page-title.screen-adjusting-text Projects
+              h1.page-title.screen-adjusting-text Publications
               .row-fluid.content-container.exhibition-list
                 each value, index in exhibitions
                   -if(index%2 === 0){  
                       .row-fluid
                         each exhibition in exhibitions.slice(index, index+2)
                           .span6.two-col-item
-                            a(href='/project/#{exhibition.year}/#{exhibition.title}', target='_self')
+                            a(href='/publications/#{exhibition.year}/#{exhibition.title}', target='_self')
                               img.media-object(src='#{exhibition.image}')
                             .two-col-caption
                               dl

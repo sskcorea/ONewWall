@@ -274,7 +274,7 @@ exports.exhibition=function(req, res, next) {
 				console.log('line: ' + line);
 				for ( var j in line) {
 					if (j == 0) {
-						title = line[j];
+						title = line[j].trim();
 					} else if (j == 1) {
 						date = line[j];
 					}
@@ -288,7 +288,7 @@ exports.exhibition=function(req, res, next) {
 					});
 				}
 				console.log(desc);
-			} else if (path.extname(files[i]) === '.jpg') {
+			} else if (path.extname(files[i]) === '.jpg' || path.extname(files[i]) === '.JPG') {
 				image = '/data/exhibitions/past/'+req.params.year + '/' + req.params.title + '/' + files[i];
 			}
 		}
@@ -422,6 +422,62 @@ exports.projects=function(req, res, next) {
 	res.render('projects',{
 		'exhibitions' : exhibitions,
 		'year':year
+	});
+}
+
+exports.project=function(req, res, next) {
+	console.log('/project/:year/:title' + req.params.year + req.params.title);
+
+	var year = '2014';
+	var root_path = path.join(__dirname, '/public/data/projects/', year, req.params.title);
+	var file_path;
+
+	var files;
+	var title = 'unknown';
+	var image, location;
+	var date = new Date().getFullYear();
+	console.log('date' + date);
+	var desc = [];
+
+	console.log('root_path: ' + root_path);
+	console.log('fs.existsSync(root_path): ' + fs.existsSync(root_path));
+	if (fs.existsSync(root_path)) {
+
+		files = fs.readdirSync(root_path);
+		console.log('files: ' + files);
+		for ( var i in files) {
+			file_path = path.join(root_path, files[i]);
+			console.log('files[' + i + ']' + files[i]);
+			if (files[i] === 'DESC.txt') {
+				var line = fs.readFileSync(file_path).toString().split("\n");
+				console.log('line: ' + line);
+				for ( var j in line) {
+					if (j == 0) {
+						title = line[j].trim();
+					} else if (j == 1) {
+						date = line[j];
+					}
+				}
+			} else if (files[i] === 'TEXT.txt') {
+				var text = fs.readFileSync(file_path).toString().split("\n");
+
+				for (var k in text) {
+					desc.push({
+						'text' : text[k]
+					});
+				}
+				console.log(desc);
+			} else if (path.extname(files[i]) === '.jpg' || path.extname(files[i]) === '.JPG') {
+				image = '/data/projects/'+ year + '/' + req.params.title + '/' + files[i];
+			}
+		}
+	}
+	console.log('image: ' + image);
+	res.render('project', {
+		'title' : title,
+		'image' : image,
+		'date' : date,
+		'desc' : desc
 	});
 }
 

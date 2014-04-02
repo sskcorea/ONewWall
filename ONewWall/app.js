@@ -64,8 +64,9 @@ app.get('/exhibitions/past/:year', routes.exhibitions_past);
 app.get('/exhibition/past/:year/:title', routes.exhibition);
 
 app.get('/projects', routes.projects);
-//app.get('/projects/:year', routes.projects_year);
-//app.get('/projects/:year/:title', routes.project);
+app.get('/project/:year/:title', routes.project);
+
+//app.get('/publications', routes.publications);
 
 app.get('/about', routes.about);
 app.get('/contacts', routes.contacts);
@@ -76,9 +77,4 @@ app.get('/members', routes.members);
 app.get('/exhibitions/year', function(req, res, next) {
 	console.log('/exhibitions/year/');
 	res.redirect('/exhibitions/past/' + req.query.yr);
-});
-
-app.get('/projects/year', function(req, res, next) {
-	console.log('/projects/year/');
-	res.redirect('/projects/' + req.query.yr);
 });
