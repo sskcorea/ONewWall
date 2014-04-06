@@ -66,7 +66,7 @@ app.get('/exhibition/past/:year/:title', routes.exhibition);
 app.get('/projects', routes.projects);
 app.get('/project/:year/:title', routes.project);
 
-//app.get('/publications', routes.publications);
+app.get('/publications', routes.publications);
 
 app.get('/about', routes.about);
 app.get('/contacts', routes.contacts);

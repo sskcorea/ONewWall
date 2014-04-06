@@ -481,6 +481,10 @@ exports.project=function(req, res, next) {
 	});
 }
 
+exports.publications=function(req, res, next) {
+	res.render('publications');
+}
+
 exports.about=function(req, res, next) {
 	res.render('about');
 }
