@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+  head
+    title #{title} &raquo; O'NewWall
+    include header
+  body
+    .container
+      .row
+        .span10.offset1.main-column
+          include menu
+          .row-fluid.main-content
+            .span9
+              h1.page-title.screen-adjusting-text #{title}
+              h2.page-subtitle 
+                a(href='/data/programs/#{title}/#{doc}') 신청서 다운로드
+              .row-fluid.content-container.dz_image_with_content
+                .span10
+                    .dz-image-content
+                      each line in desc
+                        p
+                          if(line.text ==='\r')
+                            br
+                          else
+                            | #{line.text}
+                .span2
+                  .pagination.pagination-centered
+          include footer
+    include scripts

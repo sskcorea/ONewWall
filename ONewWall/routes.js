@@ -485,6 +485,58 @@ exports.publications=function(req, res, next) {
 	res.render('publications');
 }
 
+exports.program=function(req, res, next) {
+	console.log('/project/:year/:title' + req.params.title);
+
+	var root_path = path.join(__dirname, '/public/data/programs/', req.params.title);
+	var file_path;
+
+	var files;
+	var title = 'unknown';
+	var desc = [];
+
+	console.log('root_path: ' + root_path);
+	console.log('fs.existsSync(root_path): ' + fs.existsSync(root_path));
+	if (fs.existsSync(root_path)) {
+
+		files = fs.readdirSync(root_path);
+		console.log('files: ' + files);
+		for ( var i in files) {
+			file_path = path.join(root_path, files[i]);
+			console.log('files[' + i + ']' + files[i]);
+			if (files[i] === 'DESC.txt') {
+				var line = fs.readFileSync(file_path).toString().split("\n");
+				console.log('line: ' + line);
+				for ( var j in line) {
+					if (j == 0) {
+						title = line[j].trim();
+					} else if (j == 1) {
+						doc = line[j];
+					}
+				}
+			} else if (files[i] === 'TEXT.txt') {
+				var text = fs.readFileSync(file_path).toString().split("\n");
+
+				for (var k in text) {
+					desc.push({
+						'text' : text[k]
+					});
+				}
+				console.log(desc);
+			} 
+		}
+	}
+	res.render('program', {
+		'title' : title,
+		'doc' : doc,
+		'desc' : desc
+	});
+}
+
+exports.programs=function(req, res, next) {
+	res.render('programs');
+}
+
 exports.about=function(req, res, next) {
 	res.render('about');
 }
