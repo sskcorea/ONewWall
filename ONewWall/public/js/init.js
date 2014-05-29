@@ -1,4 +1,4 @@
-$(document).ready( function() {
+$(jQuery).ready( function() {
 
 	if ( window.location.origin == "http://localhost:3000") {
 		var dzDomain = "http://localhost:3000";
