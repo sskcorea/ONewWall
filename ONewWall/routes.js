@@ -533,12 +533,29 @@ exports.program=function(req, res, next) {
 	});
 }
 
+function readText(p, f){
+	console.log('readText: ' + p + '/' + f);
+	file = path.join(p, f);
+	var text=[];
+	if (fs.existsSync(file)) {
+		var line = fs.readFileSync(file).toString().split("\n");
+		for (var i in line) {
+			text.push({
+				'line' : line[i]
+			});
+		}
+		console.log('text: ' + text);
+		return text;
+	}
+}
+
 exports.programs=function(req, res, next) {
 	res.render('programs');
 }
 
 exports.about=function(req, res, next) {
-	res.render('about');
+	var text = readText(path.join(__dirname, '/public/data/about'), 'TEXT.txt');
+	res.render('about',{'text' : text});
 }
 
 exports.contacts=function(req, res, next) {
