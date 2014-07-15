@@ -112,7 +112,7 @@ var files;
 var image_path = '';
 var artworks = [];
 
-if (fs.existsSync(root)) {
+if (path.existsSync(root)) {
 files = fs.readdirSync(root);
 for ( var i in files) {
 	if (path.extname(files[i]) === ".jpg") {
@@ -149,7 +149,7 @@ exports.artwork=function(req, res, next) {
 	var prev = -1;
 	var nxt = -1;
 
-	if (fs.existsSync(filename)) {
+	if (path.existsSync(filename)) {
 		lines = fs.readFileSync(filename).toString().split("\n");
 		for ( var i in lines) {
 			desc.push({
@@ -158,7 +158,7 @@ exports.artwork=function(req, res, next) {
 		}
 	}
 
-	if (fs.existsSync(dirname)) {
+	if (path.existsSync(dirname)) {
 		files = fs.readdirSync(dirname);
 
 		// folder files
@@ -208,7 +208,7 @@ exports.exhibitions_current=function(req, res, next) {
 	var title, image, location, date;
 	var desc = [];
 
-	if (fs.existsSync(root_path)) {
+	if (path.existsSync(root_path)) {
 
 		files = fs.readdirSync(root_path);
 
@@ -261,8 +261,8 @@ exports.exhibition=function(req, res, next) {
 	var desc = [];
 
 	console.log('root_path: ' + root_path);
-	console.log('fs.existsSync(root_path): ' + fs.existsSync(root_path));
-	if (fs.existsSync(root_path)) {
+	console.log('path.existsSync(root_path): ' + path.existsSync(root_path));
+	if (path.existsSync(root_path)) {
 
 		files = fs.readdirSync(root_path);
 		console.log('files: ' + files);
@@ -317,7 +317,7 @@ exports.exhibitions_past=function(req, res, next) {
 	var main_flag=false;
 	console.log('root :' + root);
 	
-	if (fs.existsSync(root)) {
+	if (path.existsSync(root)) {
 		dirs = fs.readdirSync(root);
 		for (var i in dirs) {
 			if(dirs.hasOwnProperty(i)){
@@ -379,7 +379,7 @@ exports.projects=function(req, res, next) {
 	var main_flag=false;
 	console.log('root :' + root);
 	
-	if (fs.existsSync(root)) {
+	if (path.existsSync(root)) {
 		dirs = fs.readdirSync(root);
 		for (var i in dirs) {
 			if(dirs.hasOwnProperty(i)){
@@ -440,8 +440,8 @@ exports.project=function(req, res, next) {
 	var desc = [];
 
 	console.log('root_path: ' + root_path);
-	console.log('fs.existsSync(root_path): ' + fs.existsSync(root_path));
-	if (fs.existsSync(root_path)) {
+	console.log('path.existsSync(root_path): ' + path.existsSync(root_path));
+	if (path.existsSync(root_path)) {
 
 		files = fs.readdirSync(root_path);
 		console.log('files: ' + files);
@@ -496,8 +496,8 @@ exports.program=function(req, res, next) {
 	var desc = [];
 
 	console.log('root_path: ' + root_path);
-	console.log('fs.existsSync(root_path): ' + fs.existsSync(root_path));
-	if (fs.existsSync(root_path)) {
+	console.log('path.existsSync(root_path): ' + path.existsSync(root_path));
+	if (path.existsSync(root_path)) {
 
 		files = fs.readdirSync(root_path);
 		console.log('files: ' + files);
@@ -537,7 +537,7 @@ function readText(p, f){
 	console.log('readText: ' + p + '/' + f);
 	file = path.join(p, f);
 	var text=[];
-	if (fs.existsSync(file)) {
+	if (path.existsSync(file)) {
 		var line = fs.readFileSync(file).toString().split("\n");
 		for (var i in line) {
 			text.push({
